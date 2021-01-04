@@ -1,12 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectDMJ
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            DataManager dataManager = new DataManager();
+            List<Games> GameLibrary = new List<Games>();
+
+            dataManager.ReadFile(GameLibrary);
+
+            foreach(Games item in GameLibrary)
+            {
+                Console.WriteLine(item.Name);
+            }
+            
         }
     }
 }
