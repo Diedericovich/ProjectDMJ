@@ -56,11 +56,11 @@ namespace ProjectDMJ
 
         public void DeleteGame(List<Games>gameLibrary, string name)
         {
-            for (int i = 0; i < gameLibrary.Count; i++)
+            for (int i = 0; i < gameLibrary.Length; i++)
             {
                 if (gameLibrary[i].Name == name)
                 {
-                    gameLibrary.RemoveAt(i);
+                    gameLibrary.Remove(i);
                 }
             }
         }
