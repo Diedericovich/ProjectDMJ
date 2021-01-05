@@ -25,10 +25,10 @@ namespace ProjectDMJ
         {
             System.Net.WebClient wc = new System.Net.WebClient();
             string download = wc.DownloadString("https://raw.githubusercontent.com/JensVanGelder/ProjectDMJ/master/Games.csv");
-            string[] gameLines = downloaded.Split('\n');
-            for (int i = 1; i < lines.Length - 1; i++)
+            string[] gameLines = download.Split('\n');
+            for (int i = 1; i < gameLines.Length - 1; i++)
             {
-                string gameLine = lines[i];
+                string gameLine = gameLines[i];
                 string[] data = gameLine.Split(',');
                 Games game = new Games()
                 {
@@ -41,9 +41,9 @@ namespace ProjectDMJ
             }
         }
                 
-        public void ReadFile(List<Games> gameLibrary)
+        public void ReadFile(List<Games> gameLibrary, string path)
         {
-            string[] lines = File.ReadAllLines("Games.csv");
+            string[] lines = File.ReadAllLines(path);
             for (int i = 1; i < lines.Length; i++)
             {
                 string gameLine = lines[i];
