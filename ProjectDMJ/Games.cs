@@ -47,17 +47,19 @@ namespace ProjectDMJ
             Layout layout = new Layout();
             string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │";
 
-            return layout.Connector + items;
+            return layout.connector + items;
         }
 
         public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
         {
             Games game = new Games();
+            DataManager manager = new DataManager();
             game.Name = name;
             game.Developer = developer;
             game.Genre = genre;
             game.ReleaseDate = releasedate;
             gameLibrary.Add(game);
+            manager.WriteDataFile(gameLibrary,  manager.pathDataFile);
         }
 
         public void DeleteGame(List<Games> gameLibrary, string name)

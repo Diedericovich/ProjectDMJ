@@ -9,11 +9,10 @@ namespace ProjectDMJ
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
+            dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
 
             Menus menus = new Menus();
-
-            dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
-            menus.ShowMenu();
+            menus.ShowMenu(gameLibrary);
         }
     }
 }
