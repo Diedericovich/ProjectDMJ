@@ -1,4 +1,6 @@
-﻿namespace ProjectDMJ
+﻿using System.Collections.Generic;
+
+namespace ProjectDMJ
 {
     internal class Games
     {
@@ -36,9 +38,39 @@
 
         public string PrintInfo()
         {
-            string Info = $"{Name} - {Developer} - {Genre} - {ReleaseDate}";
+            string Info = $"{Name},{Developer},{Genre},{ReleaseDate}";
             return Info;
         }
+
+        public void Newgame(string name, string genre, int releasedate)
+        {
+
+        }
+
+
+
+
+
+
+
+
+        public void DeleteGame(List<Games>gameLibrary, string name)
+        {
+            for (int i = 0; i < gameLibrary.Length; i++)
+            {
+                if (gameLibrary[i].Name == name)
+                {
+                    gameLibrary.Remove(i);
+                }
+            }
+        }
+
+
+
+
+
+
+
 
 
     }

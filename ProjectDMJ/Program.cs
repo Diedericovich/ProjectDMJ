@@ -8,15 +8,19 @@ namespace ProjectDMJ
         private static void Main(string[] args)
         {
             DataManager dataManager = new DataManager();
-            List<Games> GameLibrary = new List<Games>();
+            List<Games> gameLibrary = new List<Games>();
 
-            dataManager.ReadFile(GameLibrary);
+            dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
 
-            foreach(Games item in GameLibrary)
+            foreach (Games item in gameLibrary)
             {
                 Console.WriteLine(item.Name);
             }
-            
+         
+
+
+
+
         }
     }
 }
