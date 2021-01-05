@@ -42,25 +42,25 @@ namespace ProjectDMJ
             return Info;
         }
 
-        public void Newgame(string name, string genre, int releasedate)
-        {
-
+        public void Newgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
+        {   
+            Games game = new Games();
+            game.Name = name;
+            game.Developer = developer;
+            game.Genre = genre;
+            game.ReleaseDate = releasedate;
+            gameLibrary.Add(game);
         }
-
-
-
-
-
 
 
 
         public void DeleteGame(List<Games>gameLibrary, string name)
         {
-            for (int i = 0; i < gameLibrary.Length; i++)
+            for (int i = 0; i < gameLibrary.Count; i++)
             {
                 if (gameLibrary[i].Name == name)
                 {
-                    gameLibrary.Remove(i);
+                    gameLibrary.RemoveAt(i);
                 }
             }
         }

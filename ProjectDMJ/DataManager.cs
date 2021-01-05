@@ -7,7 +7,7 @@ namespace ProjectDMJ
 {
     class DataManager
     {
-        public static string pathDataFile = "Games.csv";
+        public string pathDataFile = "Games.csv";
         public void CheckIfDataFileExists(List<Games> gameLibrary, string path)
         {
             if(!File.Exists(path))
