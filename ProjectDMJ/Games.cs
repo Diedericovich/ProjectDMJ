@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace ProjectDMJ
 {
@@ -28,9 +29,9 @@ namespace ProjectDMJ
             set { genre = value; }
         }
 
-        private int releaseDate;
+        private DateTime releaseDate;
 
-        public int ReleaseDate
+        public DateTime ReleaseDate
         {
             get { return releaseDate; }
             set { releaseDate = value; }
@@ -50,7 +51,7 @@ namespace ProjectDMJ
             return layout.connector + items;
         }
 
-        public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
+        public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, DateTime releasedate)
         {
             Games game = new Games();
             DataManager manager = new DataManager();

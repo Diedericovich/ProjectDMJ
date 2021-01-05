@@ -112,7 +112,7 @@ namespace ProjectDMJ
                 Console.WriteLine("Which genre is the game");
                 string gameGenre = Console.ReadLine();
                 Console.WriteLine("What is the releasedate of the game");
-                int gameReleaseDate = Convert.ToInt32(Console.ReadLine());
+                DateTime gameReleaseDate = Convert.ToDateTime(Console.ReadLine());
                 games.AddNewgame(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate);
                 Console.WriteLine($"The game {gameName} is added to the library");
                 Thread.Sleep(2000);
