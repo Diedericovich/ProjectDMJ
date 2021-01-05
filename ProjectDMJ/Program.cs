@@ -7,11 +7,14 @@ namespace ProjectDMJ
     {
         private static void Main(string[] args)
         {
+            Menus menus = new Menus();
+           
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
 
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
+            menus.Menuname();
 
             foreach (Games item in gameLibrary)
             {
@@ -32,6 +35,8 @@ namespace ProjectDMJ
             {
                 Console.WriteLine(item.Name);
             }
+            
         }
     }
+    
 }
