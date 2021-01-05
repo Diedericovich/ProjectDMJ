@@ -8,16 +8,16 @@ namespace ProjectDMJ
 
         public string Name
         {
-            get{return name;}
-            set{name = value;}
+            get { return name; }
+            set { name = value; }
         }
 
         private string developer;
 
         public string Developer
         {
-            get { return developer;}
-            set { developer = value;}
+            get { return developer; }
+            set { developer = value; }
         }
 
         private string genre;
@@ -36,14 +36,22 @@ namespace ProjectDMJ
             set { releaseDate = value; }
         }
 
-        public string PrintInfo()
+        public string Info()
         {
             string Info = $"{Name},{Developer},{Genre},{ReleaseDate}";
             return Info;
         }
 
+        public string AdvancedInfo()
+        {
+            Layout layout = new Layout();
+            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │";
+
+            return layout.Connector + items;
+        }
+
         public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
-        {   
+        {
             Games game = new Games();
             game.Name = name;
             game.Developer = developer;
@@ -52,9 +60,7 @@ namespace ProjectDMJ
             gameLibrary.Add(game);
         }
 
-
-
-        public void DeleteGame(List<Games>gameLibrary, string name)
+        public void DeleteGame(List<Games> gameLibrary, string name)
         {
             for (int i = 0; i < gameLibrary.Count; i++)
             {
@@ -64,14 +70,5 @@ namespace ProjectDMJ
                 }
             }
         }
-
-
-
-
-
-
-
-
-
     }
 }

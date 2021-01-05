@@ -10,28 +10,14 @@ namespace ProjectDMJ
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
+            Layout layout = new Layout();
+            Menus menu = new Menus();
 
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
 
-            foreach (Games item in gameLibrary)
-            {
-                Console.WriteLine(item.Name);
-            }
 
 
-            games.AddNewgame(gameLibrary,"Zelda", "Nintendo", "Adventure", 1998);
-            Console.WriteLine();
-            foreach (Games item in gameLibrary)
-            {
-                Console.WriteLine(item.Name);
-            }
-
-            games.DeleteGame(gameLibrary, "Zelda");
-            Console.WriteLine();
-            foreach (Games item in gameLibrary)
-            {
-                Console.WriteLine(item.Name);
-            }
         }
+
     }
 }

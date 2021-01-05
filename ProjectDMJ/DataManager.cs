@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace ProjectDMJ
 {
-    class DataManager
+    internal class DataManager
     {
         public string pathDataFile = "Games.csv";
+
         public void CheckIfDataFileExists(List<Games> gameLibrary, string path)
         {
-            if(!File.Exists(path))
+            if (!File.Exists(path))
             {
                 DownloadOnlineDataFile(gameLibrary);
                 WriteDataFile(gameLibrary, path);
@@ -40,7 +40,7 @@ namespace ProjectDMJ
                 gameLibrary.Add(game);
             }
         }
-                
+
         public void ReadFile(List<Games> gameLibrary, string path)
         {
             string[] lines = File.ReadAllLines(path);
@@ -50,7 +50,7 @@ namespace ProjectDMJ
                 string[] data = gameLine.Split(',');
                 Games game = new Games()
                 {
-                    Name =  data[0],
+                    Name = data[0],
                     Developer = data[1],
                     Genre = data[2],
                     ReleaseDate = Convert.ToInt32(data[3])
@@ -65,9 +65,8 @@ namespace ProjectDMJ
             writer.WriteLine("Name,Developer,Genre,ReleaseDate");
             for (int i = 0; i < gameLibrary.Count; i++)
             {
-                writer.WriteLine(gameLibrary[i].PrintInfo());
+                writer.WriteLine(gameLibrary[i].Info());
             }
         }
-                
     }
 }
