@@ -16,6 +16,7 @@ namespace ProjectDMJ
 
             
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
+            menus.Menuname();
 
             foreach (Games item in gameLibrary)
             {
@@ -36,14 +37,7 @@ namespace ProjectDMJ
             {
                 Console.WriteLine(item.Name);
             }
-            
-
-            menus.ShowMenu();
-
-            
-
-
-
         }
     }
+    
 }
