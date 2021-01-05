@@ -49,11 +49,6 @@ namespace ProjectDMJ
 
 
 
-
-
-
-
-
         public void DeleteGame(List<Games>gameLibrary, string name)
         {
             for (int i = 0; i < gameLibrary.Length; i++)
