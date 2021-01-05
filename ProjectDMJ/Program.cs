@@ -7,17 +7,22 @@ namespace ProjectDMJ
     {
         private static void Main(string[] args)
         {
+            
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
-            Layout layout = new Layout();
-            Menus menu = new Menus();
+            
+            Menus menus = new Menus();
 
+            
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
+            menus.Menuname();
+            menus.ShowMenu();
 
 
 
         }
 
     }
+    
 }
