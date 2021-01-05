@@ -9,6 +9,7 @@ namespace ProjectDMJ
         {
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
+            Games games = new Games();
 
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
 
@@ -16,11 +17,21 @@ namespace ProjectDMJ
             {
                 Console.WriteLine(item.Name);
             }
-         
 
 
+            games.Newgame(gameLibrary,"Zelda", "Nintendo", "Adventure", 1998);
+            Console.WriteLine();
+            foreach (Games item in gameLibrary)
+            {
+                Console.WriteLine(item.Name);
+            }
 
-
+            games.DeleteGame(gameLibrary, "Zelda");
+            Console.WriteLine();
+            foreach (Games item in gameLibrary)
+            {
+                Console.WriteLine(item.Name);
+            }
         }
     }
 }
