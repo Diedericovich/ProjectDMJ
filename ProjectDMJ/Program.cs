@@ -17,6 +17,7 @@ namespace ProjectDMJ
             
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathDataFile);
             menus.Menuname();
+            menus.ShowMenu();
 
             foreach (Games item in gameLibrary)
             {
