@@ -42,7 +42,7 @@ namespace ProjectDMJ
             return Info;
         }
 
-        public void Newgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
+        public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, int releasedate)
         {   
             Games game = new Games();
             game.Name = name;

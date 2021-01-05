@@ -19,7 +19,7 @@ namespace ProjectDMJ
             }
 
 
-            games.Newgame(gameLibrary,"Zelda", "Nintendo", "Adventure", 1998);
+            games.AddNewgame(gameLibrary,"Zelda", "Nintendo", "Adventure", 1998);
             Console.WriteLine();
             foreach (Games item in gameLibrary)
             {
