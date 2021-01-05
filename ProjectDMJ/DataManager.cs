@@ -16,7 +16,7 @@ namespace ProjectDMJ
                 WriteDataFile(gameLibrary, path);
             }
             else
-            {   
+            {
                 ReadFile(gameLibrary, path);
             }
         }
