@@ -35,7 +35,7 @@ namespace ProjectDMJ
                     Name = data[0],
                     Developer = data[1],
                     Genre = data[2],
-                    ReleaseDate = Convert.ToDateTime(data[3])
+                    ReleaseDate = Convert.ToInt32(data[3])
                 };
                 gameLibrary.Add(game);
             }
@@ -53,7 +53,7 @@ namespace ProjectDMJ
                     Name = data[0],
                     Developer = data[1],
                     Genre = data[2],
-                    ReleaseDate = Convert.ToDateTime(data[3])
+                    ReleaseDate = Convert.ToInt32(data[3])
                 };
                 gameLibrary.Add(game);
             }
