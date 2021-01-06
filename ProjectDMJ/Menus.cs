@@ -161,5 +161,25 @@ namespace ProjectDMJ
         {
             return gameLibrary.OrderBy(a => a.Name).ToList();
         }
+
+        public void CheckInputExists(string gameName, List<Games>gameLibrary)
+        {
+            for (int i = 0; i < gameLibrary.Count; i++)
+            {
+                if (gameName == gameLibrary[i].Name)
+                {
+                    Console.WriteLine("Deze game bestaat al in de library");
+                }
+
+                else if (gameName != gameLibrary[i].Name)
+
+                {
+                    Console.WriteLine("De game is toegevoegd");
+                }
+            }
+
+        }
+
+
     }
 }
