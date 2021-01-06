@@ -1,16 +1,18 @@
 Name,Developer,Genre,ReleaseDate
-Cyberpunk 2077,CD Projekt RED,RPG,10/12/2020
-Half-Life,Valve,first-person shooter,19/11/1998
-Dota2,Valve,MOBA,9/7/2013
-Valorant,Riot Games,first-person shooter,2/6/2020
-World of Warcraft,Blizzard Entertainment,MMORPG,23/11/2004
-Overwatch,Blizzard Entertainment,first-person shooter,27/11/2015
-Runescape,Jagex,MMORPG,4/1/2001
-Guildwars2,ArenaNet,MMORPG,28/8/2012
-Counter-Strike: Global Offensive,Valve,first-person shooter,21/9/2012
-The Witcher 3: Wild Hunt,CD Projekt RED,ARPG,18/5/2015
-DOOM Eternal,id Software,first-person shooter,20/3/2020
-Minecraft,Mojang,sandbox,17/5/2009
-Grand Theft Auto V,Rockstar Games,action-adventure,17/9/2013
-The Elder Scrolls V: Skyrim,Bethesda,RPG,11/11/2011
-Dark Souls,FromSoftware Inc.,ARPG,22/9/2011
+Cyberpunk 2077,CD Projekt RED,RPG,10/12/2020,1
+Half-Life,Valve,first-person shooter,19/11/1998,2
+Dota2,Valve,MOBA,09/07/2013,3
+Valorant,Riot Games,first-person shooter,02/06/2020,4
+World of Warcraft,Blizzard Entertainment,MMORPG,23/11/2004,5
+Overwatch,Blizzard Entertainment,first-person shooter,27/11/2015,6
+Runescape,Jagex,MMORPG,04/01/2001,7
+Guildwars2,ArenaNet,MMORPG,28/08/2012,8
+Counter-Strike: Global Offensive,Valve,first-person shooter,21/09/2012,9
+The Witcher 3: Wild Hunt,CD Projekt RED,ARPG,18/05/2015,10
+DOOM Eternal,id Software,first-person shooter,20/03/2020,11
+Minecraft,Mojang,sandbox,17/05/2009,12
+Grand Theft Auto V,Rockstar Games,action-adventure,17/09/2013,13
+The Elder Scrolls V: Skyrim,Bethesda,RPG,11/11/2011,14
+Pong,Wizards,sports,01/01/1950,15
+Duck Hunt,Americans,sports,05/05/1950,16
+Test,test,test,05/05/1999,17
