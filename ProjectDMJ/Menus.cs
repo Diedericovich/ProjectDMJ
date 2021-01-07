@@ -17,19 +17,12 @@ namespace ProjectDMJ
             Console.Clear();
             MenuLogo();
 
-            Console.WriteLine("  MENU ");
             Console.WriteLine();
 
-            Console.WriteLine("1. Show Game Libary ");
-            Console.WriteLine();
-            Console.WriteLine("2. Add New Game ");
-            Console.WriteLine();
-            Console.WriteLine("3. Delete Existing Game ");
-            Console.WriteLine();
-            Console.WriteLine("4. Exit ");
-            Console.WriteLine();
-            Console.WriteLine();
-            //Console.WriteLine(layout.buttonOne("1.Show library"));
+            Console.WriteLine(layout.buttonOne("1.Show library"));
+            Console.WriteLine(layout.buttonOne("2.Add Game"));
+            Console.WriteLine(layout.buttonOne("3.Delete Game"));
+            Console.WriteLine(layout.buttonOne("4.Exit"));
 
             SelectInMenu(gameLibrary);
         }
@@ -143,6 +136,7 @@ namespace ProjectDMJ
             Thread.Sleep(2000);
             ShowMenu(gameLibrary);
         }
+
         public void AskInfoNewGame(List<Games> gameLibrary)
         {
             Games games = new Games();

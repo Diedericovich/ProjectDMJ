@@ -22,9 +22,9 @@ namespace ProjectDMJ
         public string buttonOne(string buttonTitle, ConsoleColor color = ConsoleColor.Gray)
         {
             Console.ForegroundColor = color;
-            string top = "┌────────────────────┐\n";
-            string mid = string.Format($"|   {buttonTitle,-17}|\n");
-            string bot = "└────────────────────┘";
+            string top = "           ┌────────────────────┐\n";
+            string mid = string.Format($"           |   {buttonTitle,-17}|\n");
+            string bot = "           └────────────────────┘";
 
             return top + mid + bot;
         }
