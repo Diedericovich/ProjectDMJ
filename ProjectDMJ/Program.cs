@@ -12,12 +12,14 @@ namespace ProjectDMJ
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathGamesDataFile,games.Properties());
 
             Menus menus = new Menus();
-            menus.ShowMenu(gameLibrary);
-
-
-            List<Games> userLibrary = new List<Games>();
+            //menus.ShowMenu(gameLibrary);
+            UserMenus usermenus = new UserMenus();
+            usermenus.AccountMenu(gameLibrary);
+            Users user = new Users();
+            //List<Users> users = new List<Users>();
+            //List<Games> userLibrary = new List<Games>();
             //dataManager.ReadUsersFile(users, dataManager.pathUsersDataFile);
-            //UserMenus userMenus = new UserMenus();
+            UserMenus userMenus = new UserMenus();
 
             //userMenus.CreateUser(users, userLibrary);
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
