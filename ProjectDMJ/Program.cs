@@ -20,9 +20,9 @@ namespace ProjectDMJ
             //dataManager.ReadUsersFile(users, dataManager.pathUsersDataFile);
             //UserMenus userMenus = new UserMenus();
 
-            ////userMenus.CreateUser(users, userLibrary);
-            ////userMenus.AddGameToLibrary(gameLibrary, users[0]);
-            //userMenus.AddGameToLibrary(gameLibrary, users[2]);
+            //userMenus.CreateUser(users, userLibrary);
+            //userMenus.AddGameToLibrary(gameLibrary, users[3]);
+            //userMenus.AddGameToLibrary(gameLibrary, users[3]);
 
             //foreach (var item in users)
             //{

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProjectDMJ
+﻿namespace ProjectDMJ
 {
-    class Enums
+    internal class Enums
     {
-        enum gameGenre
+        private enum gameGenre
         {
             Indie,
             Action,
@@ -22,31 +18,5 @@ namespace ProjectDMJ
             VR,
             Sandbox
         }
-
-        enum month 
-            {
-               January,
-               February,
-               March,
-               April,
-               May,
-               June,
-               July,
-               August,
-               September,
-               October,
-               November,
-               December
-            }
-
-        public static int DaysInMonth (int year, int month);
-
-        enum days 
-        {
-            
-        }
-
-
-
     }
 }

@@ -44,13 +44,6 @@ namespace ProjectDMJ
             set{ id = value;}
         }
 
-        private int id;
-
-        public int ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
 
         public Games(string name, string developer, string genre, DateTime releasedate, int id)
         {
