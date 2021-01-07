@@ -60,12 +60,7 @@ namespace ProjectDMJ
             }
             else if (option.Key == ConsoleKey.NumPad2)
             {
-                Console.Clear();
-                MenuLogo();
-                AskInfoNewGame(gameLibrary);
-                AddAnotherGame(gameLibrary);
-                Thread.Sleep(2000);
-                ShowMenu(gameLibrary);
+                AddNewGame(gameLibrary);
             }
             else if (option.Key == ConsoleKey.NumPad3)
             {
@@ -133,22 +128,30 @@ namespace ProjectDMJ
             {
                 Console.WriteLine("Go back to menu in 3 ");
                 Thread.Sleep(1000);
-                Console.Clear();
                 Console.WriteLine("Go back to menu in 2 ");
                 Thread.Sleep(1000);
-                Console.Clear();
                 Console.WriteLine("Go back to menu in 1 ");
                 Thread.Sleep(2000);
                 ShowMenu(gameLibrary);
             }
         }
 
+        public void AddNewGame(List<Games> gameLibrary)
+        {
+            Console.Clear();
+            MenuLogo();
+            AskInfoNewGame(gameLibrary);
+            AddAnotherGame(gameLibrary);
+            Thread.Sleep(2000);
+            ShowMenu(gameLibrary);
+        }
         public void AskInfoNewGame(List<Games> gameLibrary)
         {
             Games games = new Games();
 
             Console.WriteLine("Enter the name of your game");
             string gameName = Console.ReadLine();
+            CheckInputExists(gameName, gameLibrary);
             Console.WriteLine("Who is the developer of the game");
             string gameDeveloper = Console.ReadLine();
             Console.WriteLine("Which genre is the game");
@@ -160,56 +163,6 @@ namespace ProjectDMJ
             Console.WriteLine();
         }
 
-        //public void SelectDeleteGame(List<Games> gameLibrary)
-        //{
-        //    Console.Clear();
-        //    MenuLogo();
-        //    Console.WriteLine("Choose game you wish to delete:");
-        //    PrintListTitles(gameLibrary);
-        //    int deletedId = Convert.ToInt32(Console.ReadLine());
-        //    games.DeleteGame(gameLibrary, deletedId,dataManager.pathGamesDataFile);
-        //    Console.WriteLine("Delete another game? (y/n)");
-        //    SelectDeleteGameYesNo(gameLibrary);
-
-        //}
-        //public void SelectDeleteGameYesNo(List<Games> gameLibrary)
-        //{
-        //    ConsoleKeyInfo option;
-        //    option = Console.ReadKey(true);
-        //    if (option.Key == ConsoleKey.Y)
-        //    {
-        //        SelectDeleteGame(gameLibrary);
-        //    }
-        //    else if (option.Key == ConsoleKey.N)
-        //    {
-        //        Console.WriteLine("Returning to main menu");
-        //        Thread.Sleep(2000);
-        //        ShowMenu(gameLibrary);
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Please choose y or n");
-        //        Thread.Sleep(2000);
-        //        SelectDeleteGameYesNo(gameLibrary);
-        //    }
-        //}
-
-        //public void CheckInputExists(string gameName, List<Games> gameLibrary)
-        //{
-        //    for (int i = 0; i < gameLibrary.Count; i++)
-        //    {
-        //        if (gameName == gameLibrary[i].Name)
-        //        {
-        //            Console.WriteLine("Deze game bestaat al in de library");
-        //        }
-        //        else if (gameName != gameLibrary[i].Name)
-
-        //        {
-        //            Console.WriteLine("De game is toegevoegd");
-        //        }
-        //    }
-        //}
-
         public void CheckInputExists(string gameName, List<Games> gameLibrary)
         {
             for (int i = 0; i < gameLibrary.Count; i++)
@@ -218,7 +171,8 @@ namespace ProjectDMJ
                 {
                     Console.WriteLine("This game has already been added to the list. Returning to main menu. ");
                     Thread.Sleep(1000);
-                    ShowMenu(gameLibrary);
+                    AddNewGame(gameLibrary);
+                    break;
                 }
                 else if (gameName != gameLibrary[i].Name)
 
@@ -226,6 +180,7 @@ namespace ProjectDMJ
                     Console.WriteLine("Entry name has been accepted");
                     break;
                 }
+                break;
             }
         }
 
