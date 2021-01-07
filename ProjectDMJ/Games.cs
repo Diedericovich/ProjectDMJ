@@ -37,6 +37,12 @@ namespace ProjectDMJ
             get { return releaseDate; }
             set { releaseDate = value; }
         }
+        private int id;
+        public int ID
+        {
+            get{ return id;}
+            set{ id = value;}
+        }
 
         private int id;
 
