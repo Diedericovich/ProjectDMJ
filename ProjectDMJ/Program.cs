@@ -19,7 +19,7 @@ namespace ProjectDMJ
             //List<Users> users = new List<Users>();
             //List<Games> userLibrary = new List<Games>();
             //dataManager.ReadUsersFile(users, dataManager.pathUsersDataFile);
-            //UserMenus userMenus = new UserMenus();
+            UserMenus userMenus = new UserMenus();
 
             //userMenus.CreateUser(users, userLibrary);
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
