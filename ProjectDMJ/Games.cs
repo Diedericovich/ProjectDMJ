@@ -36,6 +36,12 @@ namespace ProjectDMJ
             get { return releaseDate; }
             set { releaseDate = value; }
         }
+        private int id;
+        public int ID
+        {
+            get{ return id;}
+            set{ id = value;}
+        }
 
         public string Info()
         {
@@ -46,7 +52,7 @@ namespace ProjectDMJ
         public string AdvancedInfo()
         {
             Layout layout = new Layout();
-            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │";
+            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │{releaseDate.ToString("dd MMMM yyyy"),-25}│";
 
             return layout.connector + items;
         }
@@ -63,14 +69,18 @@ namespace ProjectDMJ
             manager.WriteDataFile(gameLibrary,  manager.pathDataFile);
         }
 
-        public void DeleteGame(List<Games> gameLibrary, string name)
+        public void DeleteGame(List<Games> gameLibrary, int id)
         {
-            for (int i = 0; i < gameLibrary.Count; i++)
+            int index = id - 1;
+            var item = gameLibrary.Find(x => x.ID == id);
+            if (index <= gameLibrary.Count && index >= 0)
             {
-                if (gameLibrary[i].Name == name)
-                {
-                    gameLibrary.RemoveAt(i);
-                }
+                Console.WriteLine($"De game {item.Name} is verwijderd uit de lijst.");
+                gameLibrary.RemoveAll(x => x.ID == id);
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Game does not exist");
             }
         }
     }
