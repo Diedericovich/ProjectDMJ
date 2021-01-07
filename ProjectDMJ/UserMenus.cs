@@ -38,5 +38,15 @@ namespace ProjectDMJ
             Games games = new Games();
             dataManager.WriteDataFile(user.Library, dataManager.pathUsersLibraryDataFile(user.Username), games.Properties());
         }
+        public void ShowUserLibrary(Users user, List<Games> userLibrary)
+        {
+            Menus menus = new Menus();
+            System.Console.WriteLine($"{user.Username},{user.RealName}");
+            menus.PrintAdvancedInfo(user.Library);
+            while (true)
+            {
+                menus.SortList(userLibrary);
+            }
+        }
     }
 }

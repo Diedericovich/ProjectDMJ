@@ -9,9 +9,10 @@ namespace ProjectDMJ
             DataManager dataManager = new DataManager();
             List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
-            dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathGamesDataFile,games.Properties());
+            dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
 
             Menus menus = new Menus();
+
             menus.ShowMenu(gameLibrary);
 
             //Users user = new Users();
@@ -24,13 +25,7 @@ namespace ProjectDMJ
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
 
-            //foreach (var item in users)
-            //{
-            //    System.Console.WriteLine($"{item.Username},{item.RealName}");
-            //    menus.PrintAdvancedInfo(item.Library);
-            //}
-
-
+            //userMenus.ShowUserLibrary(users[1], users[1].Library);
         }
     }
 }

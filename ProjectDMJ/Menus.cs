@@ -16,7 +16,6 @@ namespace ProjectDMJ
         {
             Console.Clear();
             MenuLogo();
-
             Console.WriteLine();
 
             Console.WriteLine(layout.buttonOne("1.Show library"));
@@ -39,33 +38,37 @@ namespace ProjectDMJ
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
 
-            if (option.Key == ConsoleKey.NumPad1)
+            switch (option.Key)
             {
-                Console.Clear();
-                MenuLogo();
-                PrintAdvancedInfo(gameLibrary);
-                Console.WriteLine();
-                Console.WriteLine("Press enter to return to main menu");
-                Console.ReadLine();
-                ShowMenu(gameLibrary);
+                case ConsoleKey.NumPad1:
+                    ShowLibrary(gameLibrary);
+                    break;
+                case ConsoleKey.NumPad2:
+                    AddNewGame(gameLibrary);
+                    break;
+                case ConsoleKey.NumPad3:
+                    SelectDeleteGame(gameLibrary);
+                    break;
+                case ConsoleKey.NumPad4:
+                    dataManager.WriteDataFile(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Choose one of the 4 Options");
+                    SelectInMenu(gameLibrary);
+                    break;
             }
-            else if (option.Key == ConsoleKey.NumPad2)
-            {
-                AddNewGame(gameLibrary);
-            }
-            else if (option.Key == ConsoleKey.NumPad3)
-            {
-                SelectDeleteGame(gameLibrary);
-            }
-            else if (option.Key == ConsoleKey.NumPad4)
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Choose one of the 4 Options");
-                SelectInMenu(gameLibrary);
-            }
+        }
+
+        public void ShowLibrary(List<Games> gameLibrary)
+        {
+            Console.Clear();
+            MenuLogo();
+            PrintAdvancedInfo(gameLibrary);
+            while (true)
+                {
+                    SortList(gameLibrary);
+                }
         }
 
         public void PrintAdvancedInfo(List<Games> gameLibrary)
@@ -83,15 +86,61 @@ namespace ProjectDMJ
 
         public void PrintListTitles(List<Games> gameLibrary)
         {
+            gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
             foreach (var game in gameLibrary)
             {
                 Console.WriteLine($"{game.ID}.{game.Name}");
             }
         }
 
-        public List<Games> SortList(List<Games> gameLibrary)
+        public void SortList(List<Games> gameLibrary)
         {
-            return gameLibrary.OrderBy(a => a.Name).ToList();
+            Console.WriteLine("1.SortName,2.SortRelease,3.SortDev,4.SortGenre,5.SortId,6.Back");
+            ConsoleKeyInfo option;
+            option = Console.ReadKey(true);
+
+            switch (option.Key)
+            {
+                case ConsoleKey.NumPad1:
+                    {
+                        gameLibrary = gameLibrary.OrderBy(a => a.Name).ToList();
+                        break;
+                    }
+
+                case ConsoleKey.NumPad2:
+                    {
+                        gameLibrary = gameLibrary.OrderBy(a => a.ReleaseDate).ToList();
+                        break;
+                    }
+
+                case ConsoleKey.NumPad3:
+                    {
+                        gameLibrary = gameLibrary.OrderBy(a => a.Developer).ToList();
+                        break;
+                    }
+
+                case ConsoleKey.NumPad4:
+                    {
+                        gameLibrary = gameLibrary.OrderBy(a => a.Genre).ToList();
+                        break;
+                    }
+
+                case ConsoleKey.NumPad5:
+                    {
+                        gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
+                        break;
+                    }
+
+                case ConsoleKey.NumPad6:
+                    gameLibrary = gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
+                    ShowMenu(gameLibrary);
+                    break;
+                default:
+                    Console.WriteLine("Error: Sort option not found");
+                    Thread.Sleep(1500);
+                    break;
+            }
+            ShowLibrary(gameLibrary);
         }
 
         public void AddAnotherGame(List<Games> gameLibrary)
@@ -117,12 +166,12 @@ namespace ProjectDMJ
             }
             else if (addAnotherGame == 'N')
             {
-                Console.WriteLine("Go back to menu in 3 ");
-                Thread.Sleep(1000);
-                Console.WriteLine("Go back to menu in 2 ");
-                Thread.Sleep(1000);
-                Console.WriteLine("Go back to menu in 1 ");
-                Thread.Sleep(2000);
+                Console.Write("Going back to menu in 3");
+                Thread.Sleep(500);
+                Console.Write(" 2");
+                Thread.Sleep(500);
+                Console.Write(" 1");
+                Thread.Sleep(500);
                 ShowMenu(gameLibrary);
             }
         }
@@ -150,7 +199,7 @@ namespace ProjectDMJ
             string gameGenre = Console.ReadLine();
             Console.WriteLine("What is the releasedate of the game");
             DateTime gameReleaseDate = Convert.ToDateTime(Console.ReadLine());
-            games.AddNewgameToLibrary(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate, dataManager.pathGamesDataFile);
+            gameLibrary = games.AddNewgameToLibrary(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate, dataManager.pathGamesDataFile);
             Console.WriteLine($"The game {gameName} is added to the library");
             Console.WriteLine();
         }
@@ -161,18 +210,11 @@ namespace ProjectDMJ
             {
                 if (gameName == gameLibrary[i].Name)
                 {
-                    Console.WriteLine("This game has already been added to the list. Returning to main menu. ");
-                    Thread.Sleep(1000);
+                    Console.WriteLine($"This game already exists. Enter new title.");
+                    Thread.Sleep(1500);
                     AddNewGame(gameLibrary);
                     break;
                 }
-                else if (gameName != gameLibrary[i].Name)
-
-                {
-                    Console.WriteLine("Entry name has been accepted");
-                    break;
-                }
-                break;
             }
         }
 

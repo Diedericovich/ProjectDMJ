@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectDMJ
 {
@@ -84,29 +85,28 @@ namespace ProjectDMJ
             return layout.connector + items;
         }
 
-        public void AddNewgameToLibrary(List<Games> gameLibrary, string name, string developer, string genre, DateTime releasedate, string path)
+        public List<Games> AddNewgameToLibrary(List<Games> gameLibrary, string name, string developer, string genre, DateTime releasedate, string path)
         {
             Games game = new Games(name, developer, genre, releasedate)
             {
                 ID = gameLibrary[gameLibrary.Count-1].ID + 1
             };
             gameLibrary.Add(game);
-            manager.WriteDataFile(gameLibrary, path,Properties());
+            return gameLibrary;
         }
 
         public void DeleteGame(List<Games> gameLibrary, int id, string path)
         {
-            int index = id - 1;
             var item = gameLibrary.Find(x => x.ID == id);
-            if (index <= gameLibrary.Count && index >= 0)
+
+            if (item is null)
             {
-                Console.WriteLine($"{item.Name} has been deleted from the library.");
-                gameLibrary.RemoveAll(x => x.ID == id);
-                manager.WriteDataFile(gameLibrary, path,Properties());
+                Console.WriteLine("ERROR: Game does not exist");
             }
             else
             {
-                Console.WriteLine("ERROR: Game does not exist");
+                Console.WriteLine($"{item.Name} has been deleted from the library.");
+                gameLibrary.RemoveAll(x => x.ID == id);
             }
         }
     }
