@@ -107,6 +107,8 @@ namespace ProjectDMJ
                 MenuLogo();
                 Console.WriteLine("Enter the name of your game");
                 string gameName = Console.ReadLine();
+                CheckInputExists(gameName, gameLibrary);
+
                 Console.WriteLine("Who is the developer of the game");
                 string gameDeveloper = Console.ReadLine();
                 Console.WriteLine("Which genre is the game");
@@ -168,13 +170,17 @@ namespace ProjectDMJ
             {
                 if (gameName == gameLibrary[i].Name)
                 {
-                    Console.WriteLine("Deze game bestaat al in de library");
+                    Console.WriteLine("This game has already been added to the list. Returning to main menu. ");
+                    Thread.Sleep(1000);
+                    ShowMenu(gameLibrary);
                 }
 
                 else if (gameName != gameLibrary[i].Name)
 
                 {
-                    Console.WriteLine("De game is toegevoegd");
+                    Console.WriteLine("Entry name has been accepted");
+                    break;
+
                 }
             }
 
