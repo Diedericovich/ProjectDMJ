@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectDMJ
 {
     internal class Games
     {
+        private DataManager manager = new DataManager();
         private string name;
 
         public string Name
@@ -37,40 +38,76 @@ namespace ProjectDMJ
             set { releaseDate = value; }
         }
 
+        private int id;
+
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public Games(string name, string developer, string genre, DateTime releasedate, int id)
+        {
+            Name = name;
+            Developer = developer;
+            Genre = genre;
+            ReleaseDate = releasedate;
+            ID = id;
+        }
+
+        public Games(string name, string developer, string genre, DateTime releasedate)
+        {
+            Name = name;
+            Developer = developer;
+            Genre = genre;
+            ReleaseDate = releasedate;
+        }
+
+        public Games()
+        {
+        }
+
         public string Info()
         {
-            string Info = $"{Name},{Developer},{Genre},{ReleaseDate}";
+            string Info = $"{Name},{Developer},{Genre},{ReleaseDate.ToString("dd/MM/yyyy")},{ID}";
             return Info;
+        }
+        public string Properties()
+        {
+            return "Name,Developer,Genre,ReleaseDate";
         }
 
         public string AdvancedInfo()
         {
             Layout layout = new Layout();
-            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │";
+            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │ {ReleaseDate.ToString("dd/MM/yyyy"),-23} |";
 
             return layout.connector + items;
         }
 
-        public void AddNewgame(List<Games> gameLibrary, string name, string developer, string genre, DateTime releasedate)
+        public void AddNewgameToLibrary(List<Games> gameLibrary, string name, string developer, string genre, DateTime releasedate, string path)
         {
-            Games game = new Games();
-            DataManager manager = new DataManager();
-            game.Name = name;
-            game.Developer = developer;
-            game.Genre = genre;
-            game.ReleaseDate = releasedate;
+            Games game = new Games(name, developer, genre, releasedate)
+            {
+                ID = gameLibrary[gameLibrary.Count-1].ID + 1
+            };
             gameLibrary.Add(game);
-            manager.WriteDataFile(gameLibrary,  manager.pathDataFile);
+            manager.WriteDataFile(gameLibrary, path,Properties());
         }
 
-        public void DeleteGame(List<Games> gameLibrary, string name)
+        public void DeleteGame(List<Games> gameLibrary, int id, string path)
         {
-            for (int i = 0; i < gameLibrary.Count; i++)
+            int index = id - 1;
+            var item = gameLibrary.Find(x => x.ID == id);
+            if (index <= gameLibrary.Count && index >= 0)
             {
-                if (gameLibrary[i].Name == name)
-                {
-                    gameLibrary.RemoveAt(i);
-                }
+                Console.WriteLine($"{item.Name} has been deleted from the library.");
+                gameLibrary.RemoveAll(x => x.ID == id);
+                manager.WriteDataFile(gameLibrary, path,Properties());
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Game does not exist");
             }
         }
     }

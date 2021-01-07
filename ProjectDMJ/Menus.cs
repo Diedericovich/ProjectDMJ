@@ -8,11 +8,12 @@ namespace ProjectDMJ
 {
     internal class Menus
     {
-        DataManager dataManager = new DataManager();
-        Games games = new Games();
+        private DataManager dataManager = new DataManager();
+        private Games games = new Games();
+        private Layout layout = new Layout();
+
         public void ShowMenu(List<Games> gameLibrary)
         {
-
             Console.Clear();
             MenuLogo();
 
@@ -30,57 +31,13 @@ namespace ProjectDMJ
             Console.WriteLine();
 
             SelectInMenu(gameLibrary);
-
-            
         }
 
         public void MenuLogo()
         {
-            string menuTitle = @" 
-                                                                                                                                                                
-                                                                                                                                                                
-        
- ____                                      ____                                   
-/\  _`\                                   /\  _`\                                 
-\ \ \L\_\     __       ___ ___       __   \ \ \L\ \      __      _ __   __  __    
- \ \ \L_L   /'__`\   /' __` __`\   /'__`\  \ \ ,  /    /'__`\   /\`'__\/\ \/\ \   
-  \ \ \/, \/\ \L\.\_ /\ \/\ \/\ \ /\  __/   \ \ \\ \  /\ \L\.\_ \ \ \/ \ \ \_\ \  
-   \ \____/\ \__/.\_\\ \_\ \_\ \_\\ \____\   \ \_\ \_\\ \__/.\_\ \ \_\  \/`____ \ 
-    \/___/  \/__/\/_/ \/_/\/_/\/_/ \/____/    \/_/\/ / \/__/\/_/  \/_/   `/___/> \
-                                                                            /\___/
-                                                                            \/__/ 
-                                                                                    
-                          
-──────────────███████──███████
-──────────████▓▓▓▓▓▓████░░░░░██
-────────██▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░██
-──────██▓▓▓▓▓▓████████████░░░░██
-────██▓▓▓▓▓▓████████████████░██
-────██▓▓████░░░░░░░░░░░░██████
-──████████░░░░░░██░░██░░██▓▓▓▓██
-──██░░████░░░░░░██░░██░░██▓▓▓▓██
-██░░░░██████░░░░░░░░░░░░░░██▓▓██
-██░░░░░░██░░░░██░░░░░░░░░░██▓▓██
-──██░░░░░░░░░███████░░░░██████
-────████░░░░░░░███████████▓▓██
-──────██████░░░░░░░░░░██▓▓▓▓██
-────██▓▓▓▓██████████████▓▓██
-──██▓▓▓▓▓▓▓▓████░░░░░░████
-████▓▓▓▓▓▓▓▓██░░░░░░░░░░██
-████▓▓▓▓▓▓▓▓██░░░░░░░░░░██
-██████▓▓▓▓▓▓▓▓██░░░░░░████████
-──██████▓▓▓▓▓▓████████████████
-────██████████████████████▓▓▓▓██
-──██▓▓▓▓████████████████▓▓▓▓▓▓██
-████▓▓██████████████████▓▓▓▓▓▓██
-██▓▓▓▓██████████████████▓▓▓▓▓▓██
-██▓▓▓▓██████████──────██▓▓▓▓████
-██▓▓▓▓████──────────────██████
-";
-
             Console.OutputEncoding = Encoding.UTF8;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(menuTitle);
+            Console.WriteLine(layout.menuTitle);
             Console.ResetColor();
         }
 
@@ -89,7 +46,6 @@ namespace ProjectDMJ
             Games games = new Games();
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
-
 
             if (option.Key == ConsoleKey.NumPad1)
             {
@@ -101,7 +57,7 @@ namespace ProjectDMJ
                 Console.ReadLine();
                 ShowMenu(gameLibrary);
             }
-            else if(option.Key == ConsoleKey.NumPad2)
+            else if (option.Key == ConsoleKey.NumPad2)
             {
                 Console.Clear();
                 MenuLogo();
@@ -113,26 +69,15 @@ namespace ProjectDMJ
                 string gameGenre = Console.ReadLine();
                 Console.WriteLine("What is the releasedate of the game");
                 DateTime gameReleaseDate = Convert.ToDateTime(Console.ReadLine());
-                games.AddNewgame(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate);
+                games.AddNewgameToLibrary(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate,dataManager.pathGamesDataFile);
                 Console.WriteLine($"The game {gameName} is added to the library");
                 Thread.Sleep(2000);
                 ShowMenu(gameLibrary);
-
             }
             else if (option.Key == ConsoleKey.NumPad3)
             {
-                Console.Clear();
-                MenuLogo();
-                Console.WriteLine("Welke gametitle wil je deleten?");
-                string deletedName = Console.ReadLine();
-                
-                games.DeleteGame(gameLibrary, deletedName);
-                Console.WriteLine($"De game {deletedName} is verwijderd uit de lijst.");
-                Thread.Sleep(2000);
-                ShowMenu(gameLibrary);
-
+                SelectDeleteGame(gameLibrary);
             }
-
             else if (option.Key == ConsoleKey.NumPad4)
             {
                 Environment.Exit(0);
@@ -144,11 +89,11 @@ namespace ProjectDMJ
             }
         }
 
-        private static void PrintAdvancedInfo(List<Games> gameLibrary)
+        public void PrintAdvancedInfo(List<Games> gameLibrary)
         {
             Layout layout = new Layout();
             Console.WriteLine(layout.topBox);
-            Console.WriteLine(string.Format("│                 {0,-22} |           {1,-15} │         {2,-17} │", "Name", "Genre", "Developer"));
+            Console.WriteLine(layout.header);
 
             foreach (var item in gameLibrary)
             {
@@ -157,9 +102,72 @@ namespace ProjectDMJ
             Console.WriteLine(layout.bottomBox);
         }
 
+        public void PrintListTitles(List<Games> gameLibrary)
+        {
+            foreach (var game in gameLibrary)
+            {
+                Console.WriteLine($"{game.ID}.{game.Name}");
+            }
+        }
+
         public List<Games> SortList(List<Games> gameLibrary)
         {
             return gameLibrary.OrderBy(a => a.Name).ToList();
+        }
+
+        public void SelectDeleteGame(List<Games> gameLibrary)
+        {
+            Console.Clear();
+            MenuLogo();
+            Console.WriteLine("Choose game you wish to delete:");
+            PrintListTitles(gameLibrary);
+            int deletedId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Are you sure? (y/n)");
+            DeleteGameConfirmation(gameLibrary, deletedId);
+            Console.WriteLine("Delete another game? (y/n)");
+            SelectDeleteMoreGames(gameLibrary);
+        }
+
+        public void SelectDeleteMoreGames(List<Games> gameLibrary)
+        {
+            ConsoleKeyInfo option;
+            option = Console.ReadKey(true);
+            if (option.Key == ConsoleKey.Y)
+            {
+                SelectDeleteGame(gameLibrary);
+            }
+            else if (option.Key == ConsoleKey.N)
+            {
+                Console.WriteLine("Returning to main menu");
+                Thread.Sleep(2000);
+                ShowMenu(gameLibrary);
+            }
+            else
+            {
+                Console.WriteLine("Please choose y or n");
+                Thread.Sleep(1000);
+                SelectDeleteMoreGames(gameLibrary);
+            }
+        }
+
+        public void DeleteGameConfirmation(List<Games> gameLibrary, int deletedId)
+        {
+            ConsoleKeyInfo option;
+            option = Console.ReadKey(true);
+            if (option.Key == ConsoleKey.Y)
+            {
+                games.DeleteGame(gameLibrary, deletedId,dataManager.pathGamesDataFile);
+            }
+            else if (option.Key == ConsoleKey.N)
+            {
+                Console.WriteLine("Delete canceled");
+            }
+            else
+            {
+                Console.WriteLine("Please choose y or n");
+                Thread.Sleep(1000);
+                DeleteGameConfirmation(gameLibrary, deletedId);
+            }
         }
     }
 }
