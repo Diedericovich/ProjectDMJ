@@ -37,9 +37,7 @@ namespace ProjectDMJ
         public void MenuLogo()
         {
             Console.OutputEncoding = Encoding.UTF8;
-            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(layout.menuTitle);
-            Console.ResetColor();
         }
 
         public void SelectInMenu(List<Games> gameLibrary)
