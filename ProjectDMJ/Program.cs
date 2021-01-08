@@ -8,16 +8,24 @@ namespace ProjectDMJ
         private static void Main(string[] args)
         {
             DataManager dataManager = new DataManager();
-            List<Games> gameLibrary = new List<Games>();
             Games games = new Games();
+            List<Games> gameLibrary = new List<Games>();
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
-
+            
             Menus menus = new Menus();
 
-            menus.ShowMenu(gameLibrary);
+            //menus.ShowMenu(gameLibrary);
+
 
             //TESTING GROUND
+            Users user = new Users();
+            List<Users> users = new List<Users>();
+            dataManager.CheckIfDataFileExists(users, dataManager.pathUsersDataFile, user.Properties());
 
+            UserMenus usermenus = new UserMenus();
+            usermenus.AccountMenu(users[0].Library, users, users[0] );
+
+            
             //Users user = new Users();
             //List<Users> users = new List<Users>();
             //List<Games> userLibrary = new List<Games>();

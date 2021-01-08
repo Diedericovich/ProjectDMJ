@@ -41,7 +41,7 @@ namespace ProjectDMJ
             dataManager.WriteDataFile(user.Library, dataManager.pathUsersLibraryDataFile(user.Username), games.Properties());
         }
 
-        public void AccountMenu(List<Games> userLibrary)
+        public void AccountMenu(List<Games> userLibrary, List<Users>userList, Users user)
         {
             Menus menus = new Menus();
             Layout layout = new Layout();
@@ -49,17 +49,16 @@ namespace ProjectDMJ
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
             menus.MenuLogo();
-
-            Console.WriteLine(layout.Button("1.Make a new user"));
-            Console.WriteLine(layout.Button("2.Login"));
-            Console.WriteLine(layout.Button("3.Delete User"));
-            Console.WriteLine(layout.Button("4.Exit"));
+            
+            Console.WriteLine(layout.Button("1.Library","2.Store","3.Profile","4.Friends"));
 
             if (option.Key == ConsoleKey.NumPad1)
             {
+                ShowUserLibrary(user, userLibrary);
             }
             else if (option.Key == ConsoleKey.NumPad2)
             {
+                
             }
             else if (option.Key == ConsoleKey.NumPad3)
             {
