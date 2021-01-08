@@ -11,21 +11,27 @@ namespace ProjectDMJ
             Games games = new Games();
             List<Games> gameLibrary = new List<Games>();
             dataManager.CheckIfDataFileExists(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
-            
+
+            List<Users> userList = new List<Users>();
+            Users user = new Users();
+            dataManager.CheckIfDataFileExists(userList, dataManager.pathUsersDataFile, user.Properties());
             Menus menus = new Menus();
 
             //menus.ShowMenu(gameLibrary);
 
 
             //TESTING GROUND
-            Users user = new Users();
-            List<Users> users = new List<Users>();
-            dataManager.CheckIfDataFileExists(users, dataManager.pathUsersDataFile, user.Properties());
 
-            UserMenus usermenus = new UserMenus();
-            usermenus.AccountMenu(users[0].Library, users, users[0] );
+            LoginMenu login = new LoginMenu();
+            login.ShowLoginMenu(gameLibrary,userList);
+            //Users user = new Users();
+            //List<Users> users = new List<Users>();
+            //dataManager.CheckIfDataFileExists(users, dataManager.pathUsersDataFile, user.Properties());
 
-            
+            //UserMenus usermenus = new UserMenus();
+            //usermenus.AccountMenu(users[0].Library, users, users[0] );
+
+
             //Users user = new Users();
             //List<Users> users = new List<Users>();
             //List<Games> userLibrary = new List<Games>();

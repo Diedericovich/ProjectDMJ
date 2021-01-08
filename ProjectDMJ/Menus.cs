@@ -12,7 +12,7 @@ namespace ProjectDMJ
         private Games games = new Games();
         private Layout layout = new Layout();
 
-        public void ShowMenu(List<Games> gameLibrary)
+        public void ShowMenu(List<Games> gameLibrary, List<Users> userList)
         {
             Console.Clear();
             Console.SetWindowSize(129, 27);
@@ -24,7 +24,7 @@ namespace ProjectDMJ
             Console.WriteLine(layout.Button("3.Delete Game"));
             Console.WriteLine(layout.Button("4.Exit"));
 
-            SelectInMenu(gameLibrary);
+            SelectInMenu(gameLibrary,userList);
         }
 
         public void MenuLogo()
@@ -33,7 +33,7 @@ namespace ProjectDMJ
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", layout.menuTitle));
         }
 
-        public void SelectInMenu(List<Games> gameLibrary)
+        public void SelectInMenu(List<Games> gameLibrary, List<Users> userList)
         {
             Games games = new Games();
             ConsoleKeyInfo option;
@@ -56,12 +56,13 @@ namespace ProjectDMJ
 
                 case ConsoleKey.NumPad4:
                     dataManager.WriteDataFile(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
-                    Environment.Exit(0);
+                    LoginMenu login = new LoginMenu();
+                    login.ShowLoginMenu(gameLibrary,userList);
                     break;
 
                 default:
                     Console.WriteLine("Choose one of the 4 Options");
-                    SelectInMenu(gameLibrary);
+                    SelectInMenu(gameLibrary,userList);
                     break;
             }
         }
@@ -109,7 +110,7 @@ namespace ProjectDMJ
             }
         }
 
-        public void SortList(List<Games> gameLibrary)
+        public void SortList(List<Games> gameLibrary, List<Users> userList)
         {
             Console.WriteLine();
             Console.WriteLine(layout.Button("1.SortName", "2.SortRelease", "3.SortDev", "4.SortGenre", "5.SortId", "6.Back"));
@@ -150,7 +151,7 @@ namespace ProjectDMJ
 
                 case ConsoleKey.NumPad6:
                     gameLibrary = gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
-                    ShowMenu(gameLibrary);
+                    ShowMenu(gameLibrary,userList);
                     break;
 
                 default:
@@ -187,14 +188,14 @@ namespace ProjectDMJ
             }
         }
 
-        public void AddNewGame(List<Games> gameLibrary)
+        public void AddNewGame(List<Games> gameLibrary, List<Users> userList)
         {
             Console.Clear();
             MenuLogo();
             AskInfoNewGame(gameLibrary);
             AddAnotherGame(gameLibrary);
             Thread.Sleep(2000);
-            ShowMenu(gameLibrary);
+            ShowMenu(gameLibrary,userList);
         }
 
         public void AskInfoNewGame(List<Games> gameLibrary)
@@ -255,7 +256,7 @@ namespace ProjectDMJ
             SelectDeleteMoreGames(gameLibrary);
         }
 
-        public void SelectDeleteMoreGames(List<Games> gameLibrary)
+        public void SelectDeleteMoreGames(List<Games> gameLibrary, List<Users> userList)
         {
             ConsoleKeyInfo option;
             Console.WriteLine();
@@ -266,13 +267,13 @@ namespace ProjectDMJ
             }
             else if (option.Key == ConsoleKey.N)
             {
-                CountdownToMainMenu(gameLibrary);
+                CountdownToMainMenu(gameLibrary, userList);
             }
             else
             {
                 Console.Write("  Please choose y or n");
                 Thread.Sleep(1000);
-                SelectDeleteMoreGames(gameLibrary);
+                SelectDeleteMoreGames(gameLibrary, userList);
             }
         }
 
@@ -295,7 +296,7 @@ namespace ProjectDMJ
                 DeleteGameConfirmation(gameLibrary, deletedId);
             }
         }
-        public void CountdownToMainMenu(List<Games> gameLibrary)
+        public void CountdownToMainMenu(List<Games> gameLibrary, List<Users> userList)
         {
             Console.WriteLine();
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2)) + "}", "Going back to menu in 3"));
@@ -304,7 +305,7 @@ namespace ProjectDMJ
             Thread.Sleep(750);
             Console.Write(" 1");
             Thread.Sleep(750);
-            ShowMenu(gameLibrary);
+            ShowMenu(gameLibrary, userList);
         }
     }
 }

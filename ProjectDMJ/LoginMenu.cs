@@ -10,7 +10,7 @@ namespace ProjectDMJ
         public Users users = new Users();
         public UserMenus userMenus = new UserMenus();
 
-        public void ShowLoginMenu(List<Games> gameLibrary)
+        public void ShowLoginMenu(List<Games> gameLibrary, List<Users> userList)
         {
             Menus menuClass = new Menus();
 
@@ -23,10 +23,10 @@ namespace ProjectDMJ
             Console.WriteLine(layout.Button("2.Create Account"));
             Console.WriteLine(layout.Button("3.Exit"));
 
-            SelectInLoginMenu(gameLibrary);
+            SelectInLoginMenu(gameLibrary, userList, userLibrary, user);
         }
 
-        public void SelectInLoginMenu(List<Games> gameLibrary)
+        public void SelectInLoginMenu(List<Games> gameLibrary, List<Users> userList, List<Games> userLibrary, Users user)
         {
             Menus menuClass = new Menus();
             Games games = new Games();
@@ -37,11 +37,11 @@ namespace ProjectDMJ
             {
                 Console.Clear();
                 menuClass.MenuLogo();
-                //LoginAccount();
+                LoginAccount(gameLibrary, userList);
                 Console.WriteLine();
                 Console.WriteLine("Press enter to return to main menu");
                 Console.ReadLine();
-                ShowLoginMenu(gameLibrary);
+                ShowLoginMenu(gameLibrary, userList, userLibrary, user);
             }
             else if (option.Key == ConsoleKey.NumPad2)
             {
@@ -53,66 +53,47 @@ namespace ProjectDMJ
             else
             {
                 Console.WriteLine("Choose one of the 3 Options");
-                SelectInLoginMenu(gameLibrary);
+                SelectInLoginMenu(gameLibrary, userList, userLibrary, user);
             }
         }
 
-        //public void LoginAccount()
-        //{
-        //    Console.Clear();
-        //    menuClass.MenuLogo();
-        //    Console.WriteLine();
-        //    Console.WriteLine("Login as User(1) or Admin(2)?");
-        //    Console.WriteLine();
-        //    int loginChoice = Convert.ToInt32(Console.ReadLine());
-
-        //    while (loginChoice != '1' && loginChoice != '2')
-        //    {
-        //        Console.WriteLine("Choose one of the 2 options");
-        //        loginChoice = Convert.ToChar(Console.ReadLine());
-        //    }
-
-        //    if (loginChoice == '1')
-        //    {
-        //        Users users = new Users();
-        //        UserMenus userMenus = new UserMenus();
-        //        Console.Clear();
-        //        menuClass.MenuLogo();
-        //        LoginAsUser(users);
-        //    }
-        //    else if (loginChoice == '2')
-        //    {
-        //        LoginAsAdmin(users);
-        //    }
-        //}
-
-        //public void LoginAsUser(List<Users> users)
-        //{
-        //    List<Users> userLibrary = new List<Users>();
-        //    Console.Clear();
-        //    menuClass.MenuLogo();
-        //    Console.WriteLine();
-        //    Console.WriteLine("Username:");
-        //    Console.WriteLine();
-        //    string username = Console.ReadLine();
-
-        //    for (int i = 0; i < userLibrary.Count; i++)
-        //    {
-        //        if (username == userLibrary[i].Username)
-        //        {
-        //            Console.WriteLine("Connecting to User Profile Menu");
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("The name is not in use");
-        //            Console.WriteLine();
-        //            Console.WriteLine("A new account will be created");
-        //        }
-        //    }
-        //}
-
-        private void LoginAsAdmin(List<Users> users)
+        public void LoginAccount(List<Games> gameLibrary, List<Users> userList)
         {
+            Menus menuClass = new Menus();
+            UserMenus userMenu = new UserMenus();
+
+            Console.Clear();
+            menuClass.MenuLogo();
+            Console.WriteLine();
+            Console.WriteLine("Login name:");
+            string username = Console.ReadLine();
+            Console.WriteLine();
+
+            if (username == "admin")
+            {
+                menuClass.ShowMenu(gameLibrary);
+            }
+            else
+            {
+                for (int i = 0; i < userList.Count; i++)
+                {
+                    if (username == userList[i].Username)
+                    {
+                        List<Games> userLibrary = userList[i].Library;
+                        userMenu.AccountMenu(userLibrary,userList,userList[i]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("The name is not in use");
+                        Console.WriteLine();
+                        Console.WriteLine("A new account will be created");
+                    }
+                }
+
+            }
         }
+            
+
+       
     }
 }
