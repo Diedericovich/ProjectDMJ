@@ -46,11 +46,11 @@ namespace ProjectDMJ
             Menus menus = new Menus();
             Layout layout = new Layout();
             Users users = new Users();
+            Console.WriteLine(layout.Button("1.Library", "2.Store", "3.Profile", "4.Friends"));
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
             menus.MenuLogo();
-            
-            Console.WriteLine(layout.Button("1.Library","2.Store","3.Profile","4.Friends"));
+           
 
             if (option.Key == ConsoleKey.NumPad1)
             {
