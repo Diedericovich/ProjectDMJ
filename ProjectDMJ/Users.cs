@@ -68,15 +68,18 @@ namespace ProjectDMJ
             RealName = realname;
             Age = age;
             Library = library;
-            
         }
-        public Users() { }
+
+        public Users()
+        {
+        }
 
         public string Info()
         {
             string Info = $"{Username},{RealName},{Email},{Country},{Age}";
             return Info;
         }
+
         public string Properties()
         {
             return "Username,Real Name,Email,Country,Age";

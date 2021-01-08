@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace ProjectDMJ
 {
@@ -15,16 +16,30 @@ namespace ProjectDMJ
 
             menus.ShowMenu(gameLibrary);
 
+            //TESTING GROUND
+
             //Users user = new Users();
             //List<Users> users = new List<Users>();
             //List<Games> userLibrary = new List<Games>();
-            //dataManager.ReadUsersFile(users, dataManager.pathUsersDataFile);
-            UserMenus userMenus = new UserMenus();
+            //dataManager.CheckIfDataFileExists(users, dataManager.pathUsersDataFile,user.Properties());
+            //UserMenus userMenus = new UserMenus();
 
             //userMenus.CreateUser(users, userLibrary);
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
             //userMenus.AddGameToLibrary(gameLibrary, users[3]);
+            //foreach (var item in users)
+            //{
+            //    Console.WriteLine(item.Username);
+            //    menus.PrintAdvancedInfo(item.Library);
 
+            //}
+            //userMenus.AddGameToLibrary(gameLibrary, users[2]);
+            //foreach (var item in users)
+            //{
+            //    Console.WriteLine(item.Username);
+            //    menus.PrintAdvancedInfo(item.Library);
+
+            //}
             //userMenus.ShowUserLibrary(users[1], users[1].Library);
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ProjectDMJ
 {
@@ -38,13 +37,14 @@ namespace ProjectDMJ
             get { return releaseDate; }
             set { releaseDate = value; }
         }
+
         private int id;
+
         public int ID
         {
-            get{ return id;}
-            set{ id = value;}
+            get { return id; }
+            set { id = value; }
         }
-
 
         public Games(string name, string developer, string genre, DateTime releasedate, int id)
         {
@@ -72,6 +72,7 @@ namespace ProjectDMJ
             string Info = $"{Name},{Developer},{Genre},{ReleaseDate.ToString("dd/MM/yyyy")},{ID}";
             return Info;
         }
+
         public string Properties()
         {
             return "Name,Developer,Genre,ReleaseDate";
@@ -80,7 +81,7 @@ namespace ProjectDMJ
         public string AdvancedInfo()
         {
             Layout layout = new Layout();
-            string items = $"\n│ {name,-38} | {genre,-25} │ {developer,-25} │ {ReleaseDate.ToString("dd/MM/yyyy"),-23} |";
+            string items = $"\n │ {name,-41} | {genre,-25} │ {developer,-25} │ {ReleaseDate.ToString("dd/MM/yyyy"),-23} |";
 
             return layout.connector + items;
         }
@@ -89,7 +90,7 @@ namespace ProjectDMJ
         {
             Games game = new Games(name, developer, genre, releasedate)
             {
-                ID = gameLibrary[gameLibrary.Count-1].ID + 1
+                ID = gameLibrary[gameLibrary.Count - 1].ID + 1
             };
             gameLibrary.Add(game);
             return gameLibrary;
@@ -101,11 +102,12 @@ namespace ProjectDMJ
 
             if (item is null)
             {
-                Console.WriteLine("ERROR: Game does not exist");
+                Console.WriteLine();
+                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + 3) + "}", "ERROR: Game does not exist"));
             }
             else
             {
-                Console.WriteLine($"{item.Name} has been deleted from the library.");
+                Console.WriteLine($"                                         {item.Name} has been deleted from the library.");
                 gameLibrary.RemoveAll(x => x.ID == id);
             }
         }

@@ -15,13 +15,14 @@ namespace ProjectDMJ
         public void ShowMenu(List<Games> gameLibrary)
         {
             Console.Clear();
+            Console.SetWindowSize(129, 27);
             MenuLogo();
             Console.WriteLine();
 
-            Console.WriteLine(layout.buttonOne("1.Show library"));
-            Console.WriteLine(layout.buttonOne("2.Add Game"));
-            Console.WriteLine(layout.buttonOne("3.Delete Game"));
-            Console.WriteLine(layout.buttonOne("4.Exit"));
+            Console.WriteLine(layout.Button("1.Show Library"));
+            Console.WriteLine(layout.Button("2.Add Game"));
+            Console.WriteLine(layout.Button("3.Delete Game"));
+            Console.WriteLine(layout.Button("4.Exit"));
 
             SelectInMenu(gameLibrary);
         }
@@ -29,7 +30,7 @@ namespace ProjectDMJ
         public void MenuLogo()
         {
             Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine(layout.menuTitle);
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", layout.menuTitle));
         }
 
         public void SelectInMenu(List<Games> gameLibrary)
@@ -41,18 +42,23 @@ namespace ProjectDMJ
             switch (option.Key)
             {
                 case ConsoleKey.NumPad1:
+                    
                     ShowLibrary(gameLibrary);
                     break;
+
                 case ConsoleKey.NumPad2:
                     AddNewGame(gameLibrary);
                     break;
+
                 case ConsoleKey.NumPad3:
                     SelectDeleteGame(gameLibrary);
                     break;
+
                 case ConsoleKey.NumPad4:
                     dataManager.WriteDataFile(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
                     Environment.Exit(0);
                     break;
+
                 default:
                     Console.WriteLine("Choose one of the 4 Options");
                     SelectInMenu(gameLibrary);
@@ -63,12 +69,15 @@ namespace ProjectDMJ
         public void ShowLibrary(List<Games> gameLibrary)
         {
             Console.Clear();
+            Console.SetWindowSize(129, 51);
             MenuLogo();
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("      Game Library"));
             PrintAdvancedInfo(gameLibrary);
             while (true)
-                {
-                    SortList(gameLibrary);
-                }
+            {
+                SortList(gameLibrary);
+            }
         }
 
         public void PrintAdvancedInfo(List<Games> gameLibrary)
@@ -89,13 +98,21 @@ namespace ProjectDMJ
             gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
             foreach (var game in gameLibrary)
             {
-                Console.WriteLine($"{game.ID}.{game.Name}");
+                if (game.ID >= 10)
+                {
+                    Console.WriteLine($"{game.ID,43}.{game.Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"{game.ID,42}.{game.Name}");
+                }
             }
         }
 
         public void SortList(List<Games> gameLibrary)
         {
-            Console.WriteLine("1.SortName,2.SortRelease,3.SortDev,4.SortGenre,5.SortId,6.Back");
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("1.SortName", "2.SortRelease", "3.SortDev", "4.SortGenre", "5.SortId", "6.Back"));
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
 
@@ -135,6 +152,7 @@ namespace ProjectDMJ
                     gameLibrary = gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
                     ShowMenu(gameLibrary);
                     break;
+
                 default:
                     Console.WriteLine("Error: Sort option not found");
                     Thread.Sleep(1500);
@@ -145,15 +163,14 @@ namespace ProjectDMJ
 
         public void AddAnotherGame(List<Games> gameLibrary)
         {
-            Console.WriteLine("Do you want to add another game to your Library?");
             Console.WriteLine();
-            Console.WriteLine("Y / N ");
-            Console.WriteLine();
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 34) + "}", "Do you want to add another game to your Library? (Y / N) "));
             char addAnotherGame = Convert.ToChar(Console.ReadLine());
 
             while (addAnotherGame != 'Y' && addAnotherGame != 'N')
             {
-                Console.WriteLine("Choose Y for Yes or N for No. Please try again.");
+                Console.WriteLine();
+                Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 24) + "}", "Choose Y for Yes or N for No. Please try again."));
                 addAnotherGame = Convert.ToChar(Console.ReadLine());
             }
 
@@ -166,13 +183,7 @@ namespace ProjectDMJ
             }
             else if (addAnotherGame == 'N')
             {
-                Console.Write("Going back to menu in 3");
-                Thread.Sleep(500);
-                Console.Write(" 2");
-                Thread.Sleep(500);
-                Console.Write(" 1");
-                Thread.Sleep(500);
-                ShowMenu(gameLibrary);
+                CountdownToMainMenu(gameLibrary);
             }
         }
 
@@ -190,17 +201,25 @@ namespace ProjectDMJ
         {
             Games games = new Games();
 
-            Console.WriteLine("Enter the name of your game");
+            string name = "Game name: ";
+            string dev = "Game developer: ";
+            string genre = "Genre: ";
+            string date = "Release date (dd/mm/yyyy): ";
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("      Adding Game"));
+            Console.WriteLine("");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 12) + "}", name));
             string gameName = Console.ReadLine();
             CheckInputExists(gameName, gameLibrary);
-            Console.WriteLine("Who is the developer of the game");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 7) + "}", dev));
             string gameDeveloper = Console.ReadLine();
-            Console.WriteLine("Which genre is the game");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 16) + "}", genre));
             string gameGenre = Console.ReadLine();
-            Console.WriteLine("What is the releasedate of the game");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 4) + "}", date));
             DateTime gameReleaseDate = Convert.ToDateTime(Console.ReadLine());
             gameLibrary = games.AddNewgameToLibrary(gameLibrary, gameName, gameDeveloper, gameGenre, gameReleaseDate, dataManager.pathGamesDataFile);
-            Console.WriteLine($"The game {gameName} is added to the library");
+            string added = "Game has been added to the library";
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 11) + "}", added));
             Console.WriteLine();
         }
 
@@ -210,7 +229,7 @@ namespace ProjectDMJ
             {
                 if (gameName == gameLibrary[i].Name)
                 {
-                    Console.WriteLine($"This game already exists. Enter new title.");
+                    Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + 19) + "}", "This game already exists. Enter new title."));
                     Thread.Sleep(1500);
                     AddNewGame(gameLibrary);
                     break;
@@ -222,18 +241,24 @@ namespace ProjectDMJ
         {
             Console.Clear();
             MenuLogo();
-            Console.WriteLine("Choose game you wish to delete:");
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("      Deleting Game"));
+            Console.WriteLine();
             PrintListTitles(gameLibrary);
+            Console.WriteLine();
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 2) + "}", "Select Id to remove: "));
             int deletedId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"Are you sure? (y/n)");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 4) + "}", $"Are you sure? (y/n)"));
+            Console.WriteLine();
             DeleteGameConfirmation(gameLibrary, deletedId);
-            Console.WriteLine("Delete another game? (y/n)");
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 3) + "}", "Delete another game? (y/n)"));
             SelectDeleteMoreGames(gameLibrary);
         }
 
         public void SelectDeleteMoreGames(List<Games> gameLibrary)
         {
             ConsoleKeyInfo option;
+            Console.WriteLine();
             option = Console.ReadKey(true);
             if (option.Key == ConsoleKey.Y)
             {
@@ -241,13 +266,11 @@ namespace ProjectDMJ
             }
             else if (option.Key == ConsoleKey.N)
             {
-                Console.WriteLine("Returning to main menu");
-                Thread.Sleep(2000);
-                ShowMenu(gameLibrary);
+                CountdownToMainMenu(gameLibrary);
             }
             else
             {
-                Console.WriteLine("Please choose y or n");
+                Console.Write("  Please choose y or n");
                 Thread.Sleep(1000);
                 SelectDeleteMoreGames(gameLibrary);
             }
@@ -263,14 +286,25 @@ namespace ProjectDMJ
             }
             else if (option.Key == ConsoleKey.N)
             {
-                Console.WriteLine("Delete canceled");
+                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) -8) + "}", "Delete canceled"));
             }
             else
             {
-                Console.WriteLine("Please choose y or n");
+                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + 12) + "}", "Please choose y or n"));
                 Thread.Sleep(1000);
                 DeleteGameConfirmation(gameLibrary, deletedId);
             }
+        }
+        public void CountdownToMainMenu(List<Games> gameLibrary)
+        {
+            Console.WriteLine();
+            Console.Write(String.Format("{0," + ((Console.WindowWidth / 2)) + "}", "Going back to menu in 3"));
+            Thread.Sleep(750);
+            Console.Write(" 2");
+            Thread.Sleep(750);
+            Console.Write(" 1");
+            Thread.Sleep(750);
+            ShowMenu(gameLibrary);
         }
     }
 }
