@@ -82,7 +82,6 @@ namespace ProjectDMJ
         {
             Layout layout = new Layout();
             string items = $"\n │ {name,-41} | {genre,-25} │ {developer,-25} │ {ReleaseDate.ToString("dd/MM/yyyy"),-23} |";
-
             return layout.connector + items;
         }
 

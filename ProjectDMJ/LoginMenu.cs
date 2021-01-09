@@ -6,7 +6,7 @@ namespace ProjectDMJ
 {
     internal class LoginMenu
     {
-        private Layout layout = new Layout();
+        private readonly Layout layout = new Layout();
         public Users users = new Users();
         public UserMenus userMenus = new UserMenus();
 
@@ -20,7 +20,6 @@ namespace ProjectDMJ
             adminMenus.MenuLogo();
 
             Console.WriteLine();
-
             Console.WriteLine(layout.Button("1.Login Account"));
             Console.WriteLine(layout.Button("2.Create Account"));
             Console.WriteLine(layout.Button("3.Exit"));
@@ -44,9 +43,10 @@ namespace ProjectDMJ
             {
                 CreateUser(userList);
                 Console.WriteLine("Account creation succesful!");
-                Thread.Sleep(1000);
-                Console.Clear();
-                ShowLoginMenu(gameLibrary, userList);
+                Thread.Sleep(500);
+                Console.WriteLine("Logging in.");
+                Thread.Sleep(1500);
+                userMenus.AccountMenu(userList[userList.Count - 1].Library, userList, userList[userList.Count - 1], gameLibrary);
             }
             else if (option.Key == ConsoleKey.NumPad3)
             {
@@ -62,8 +62,6 @@ namespace ProjectDMJ
         public void LoginAccount(List<Games> gameLibrary, List<Users> userList)
         {
             AdminMenus menuClass = new AdminMenus();
-            UserMenus userMenu = new UserMenus();
-
             Console.Clear();
             menuClass.MenuLogo();
             Console.WriteLine();
@@ -106,7 +104,6 @@ namespace ProjectDMJ
 
         public void CheckUserExists(string username, List<Users> userList)
         {
-            UserMenus userMenu = new UserMenus();
             for (int i = 0; i < userList.Count; i++)
             {
                 if (username == userList[i].Username)

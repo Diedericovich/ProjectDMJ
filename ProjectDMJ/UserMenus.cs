@@ -8,7 +8,7 @@ namespace ProjectDMJ
     internal class UserMenus
     {
         public Layout layout = new Layout();
-        public bool AddingGame = true;
+        private bool AddingGame = true;
 
         public void AccountMenu(List<Games> userLibrary, List<Users> userList, Users user, List<Games> gameLibrary)
         {
@@ -23,7 +23,6 @@ namespace ProjectDMJ
 
         public void MainMenuControls(List<Games> userLibrary, List<Users> userList, Users user, List<Games> gameLibrary, ConsoleKeyInfo option)
         {
-            AdminMenus menus = new AdminMenus();
             switch (option.Key)
             {
                 case ConsoleKey.NumPad1:
@@ -44,6 +43,8 @@ namespace ProjectDMJ
                     break;
 
                 case ConsoleKey.NumPad5:
+                    DataManager dataManager = new DataManager();
+                    dataManager.WriteDataFile(userList, dataManager.pathUsersDataFile, user.Properties());
                     LoginMenu login = new LoginMenu();
                     login.ShowLoginMenu(gameLibrary, userList);
                     break;
@@ -77,7 +78,7 @@ namespace ProjectDMJ
             }
             Console.WriteLine(layout.Button("n.SortName", "r.SortRelease", "d.SortDev", "g.SortGenre", "i.SortId"));
             Console.WriteLine();
-            Console.WriteLine(layout.Button("a.Add Game","q.Remove Game"));
+            Console.WriteLine(layout.Button("a.Add Game", "q.Remove Game"));
             LibraryControls(user, userLibrary, userList, gameLibrary);
         }
 
@@ -116,7 +117,7 @@ namespace ProjectDMJ
 
                 case ConsoleKey.A:
                     AddingGame = true;
-                    ChangeLibrary(gameLibrary, userList, user,AddingGame);
+                    ChangeLibrary(gameLibrary, userList, user, AddingGame);
                     ShowUserLibrary(user, userLibrary, userList, gameLibrary);
                     break;
 
@@ -210,8 +211,7 @@ namespace ProjectDMJ
                         "\n6.Magenta");
                     Console.Write("Color: ");
                     option = Console.ReadKey(true);
-                    ChangeUserColor(userList,user,gameLibrary, option);
-
+                    ChangeUserColor(userList, user, gameLibrary, option);
                 }
             }
             else
@@ -221,6 +221,7 @@ namespace ProjectDMJ
             DataManager dataManager = new DataManager();
             dataManager.WriteDataFile(userList, dataManager.pathUsersDataFile, user.Properties());
         }
+
         public void ChangeUserColor(List<Users> userList, Users user, List<Games> gameLibrary, ConsoleKeyInfo option)
         {
             if (option.Key == ConsoleKey.NumPad1)
@@ -253,9 +254,9 @@ namespace ProjectDMJ
                 user.Color = "Magenta";
                 SetConsoleColor(user);
             }
-            ShowUserProfileInfo(user.Library, userList, user,gameLibrary );
-
+            ShowUserProfileInfo(user.Library, userList, user, gameLibrary);
         }
+
         public void ChangeLibrary(List<Games> gameLibrary, List<Users> userList, Users user, bool trueIfAdd)
         {
             if (AddingGame == false)
@@ -327,12 +328,12 @@ namespace ProjectDMJ
                 dataManager.WriteDataFile(user.Library, dataManager.pathUsersLibraryDataFile(user.Username), games.Properties());
             }
         }
+
         public void SetConsoleColor(Users user)
         {
             string colorName = user.Color;
-            ConsoleColor color;
 
-            if (Enum.TryParse(colorName, out color))
+            if (Enum.TryParse(colorName, out ConsoleColor color))
             {
                 Console.ForegroundColor = color;
             }

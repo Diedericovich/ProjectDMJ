@@ -19,6 +19,7 @@ namespace ProjectDMJ
                 Directory.CreateDirectory("UserLibraries");
             }
         }
+
         public void CheckIfDataFileExists(List<Games> gameLibrary, string path, string properties)
         {
             if (!File.Exists(path))
@@ -45,7 +46,7 @@ namespace ProjectDMJ
             }
         }
 
-        public void DownloadOnlineDataFile(List<Games> gameLibrary)
+        private void DownloadOnlineDataFile(List<Games> gameLibrary)
         {
             System.Net.WebClient wc = new System.Net.WebClient();
             string download = wc.DownloadString("https://raw.githubusercontent.com/JensVanGelder/ProjectDMJ/master/Games.csv");
@@ -53,7 +54,7 @@ namespace ProjectDMJ
             HandleGame(gameLines, gameLibrary, 1);
         }
 
-        public void DownloadOnlineDataFile(List<Users> userList)
+        private void DownloadOnlineDataFile(List<Users> userList)
         {
             System.Net.WebClient wc = new System.Net.WebClient();
             string download = wc.DownloadString("https://raw.githubusercontent.com/JensVanGelder/ProjectDMJ/master/Users.csv");
@@ -61,13 +62,13 @@ namespace ProjectDMJ
             HandleUser(userLines, userList, 1);
         }
 
-        public void ReadGameLibraryFile(List<Games> gameLibrary, string path)
+        private void ReadGameLibraryFile(List<Games> gameLibrary, string path)
         {
             string[] lines = File.ReadAllLines(path);
             HandleGame(lines, gameLibrary);
         }
 
-        public void ReadUsersFile(List<Users> userList, string path)
+        private void ReadUsersFile(List<Users> userList, string path)
         {
             string[] lines = File.ReadAllLines(path);
             HandleUser(lines, userList);
@@ -93,7 +94,7 @@ namespace ProjectDMJ
             }
         }
 
-        public void HandleGame(string[] lines, List<Games> gameLibrary, int index = 0)
+        private void HandleGame(string[] lines, List<Games> gameLibrary, int index = 0)
         {
             for (int i = 1; i < lines.Length - index; i++)
             {
@@ -104,7 +105,7 @@ namespace ProjectDMJ
             }
         }
 
-        public void HandleUser(string[] lines, List<Users> userList, int index = 0)
+        private void HandleUser(string[] lines, List<Users> userList, int index = 0)
         {
             for (int i = 1; i < lines.Length - index; i++)
             {
