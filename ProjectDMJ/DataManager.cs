@@ -12,6 +12,13 @@ namespace ProjectDMJ
         public string pathUsersLibraryDataFile(string username)
         { return $"UserLibraries/Library_{username}.csv"; }
 
+        public void CheckIfFolderExists()
+        {
+            if (!Directory.Exists("UserLibraries"))
+            {
+                Directory.CreateDirectory("UserLibraries");
+            }
+        }
         public void CheckIfDataFileExists(List<Games> gameLibrary, string path, string properties)
         {
             if (!File.Exists(path))

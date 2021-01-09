@@ -120,21 +120,18 @@ namespace ProjectDMJ
 
         public void CheckUserExists(string username, List<Users> userList, List<Games> gameLibrary)
         {
-            UserMenus userMenu = new UserMenus();
-            for (int i = 0; i < userList.Count; i++)
+            var user = userList.Find(x => x.Username == username);
+            if (user is null)
             {
-                if (username == userList[i].Username)
-                {
-                    List<Games> userLibrary = userList[i].Library;
-                    userMenu.AccountMenu(userLibrary, userList, userList[i], gameLibrary);
-                }
-                else
-                {
-                    Console.WriteLine("Account not found.");
-                    Thread.Sleep(1000);
-                    LoginAccount(gameLibrary, userList);
-                    break;
-                }
+                Console.WriteLine("Account not found.");
+                Thread.Sleep(1000);
+                LoginAccount(gameLibrary, userList);
+            }
+            else
+            {
+                UserMenus userMenus = new UserMenus();
+                List<Games> userLibrary = user.Library;
+                userMenus.AccountMenu(userLibrary, userList, user, gameLibrary);
             }
         }
     }

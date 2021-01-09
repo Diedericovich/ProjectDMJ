@@ -311,7 +311,7 @@ namespace ProjectDMJ
             Console.Clear();
             MenuLogo();
             Console.WriteLine();
-            Console.WriteLine(layout.Button("Users"));
+            Console.WriteLine(layout.Button("         Users"));
             ShowUsers(userList);
             Console.WriteLine();
             Console.WriteLine(layout.Button("1.Return to Main Menu"));
