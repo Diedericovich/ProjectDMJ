@@ -15,12 +15,21 @@ namespace ProjectDMJ
             List<Users> userList = new List<Users>();
             Users user = new Users();
             dataManager.CheckIfDataFileExists(userList, dataManager.pathUsersDataFile, user.Properties());
-            Menus menus = new Menus();
+            AdminMenus menus = new AdminMenus();
 
             //menus.ShowMenu(gameLibrary);
 
 
             //TESTING GROUND
+
+            string colorName = "Blue";
+            ConsoleColor color;
+
+            if (Enum.TryParse(colorName, out color))
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine("This is your favorite color!");
+            }
 
             LoginMenu login = new LoginMenu();
             login.ShowLoginMenu(gameLibrary,userList);

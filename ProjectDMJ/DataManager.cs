@@ -105,7 +105,7 @@ namespace ProjectDMJ
                 string[] data = userLine.Split(',');
                 List<Games> library = new List<Games>();
                 ReadGameLibraryFile(library, pathUsersLibraryDataFile(data[0]));
-                Users user = new Users(data[0], data[1], data[2], data[3], Convert.ToInt32(data[4]), library);
+                Users user = new Users(data[0], data[1], data[2], data[3], Convert.ToInt32(data[4]), library, data[5]);
                 userList.Add(user);
             }
         }

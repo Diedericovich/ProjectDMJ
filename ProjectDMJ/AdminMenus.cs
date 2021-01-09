@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ProjectDMJ
 {
-    internal class Menus
+    internal class AdminMenus
     {
         private DataManager dataManager = new DataManager();
         private Games games = new Games();
@@ -22,9 +22,10 @@ namespace ProjectDMJ
             Console.WriteLine(layout.Button("1.Show Library"));
             Console.WriteLine(layout.Button("2.Add Game"));
             Console.WriteLine(layout.Button("3.Delete Game"));
-            Console.WriteLine(layout.Button("4.Exit"));
+            Console.WriteLine(layout.Button("4.Show Users"));
+            Console.WriteLine(layout.Button("5.Exit"));
 
-            SelectInMenu(gameLibrary,userList);
+            SelectInMenu(gameLibrary, userList);
         }
 
         public void MenuLogo()
@@ -42,32 +43,36 @@ namespace ProjectDMJ
             switch (option.Key)
             {
                 case ConsoleKey.NumPad1:
-                    
-                    ShowLibrary(gameLibrary);
+
+                    ShowLibrary(gameLibrary, userList);
                     break;
 
                 case ConsoleKey.NumPad2:
-                    AddNewGame(gameLibrary);
+                    AddNewGame(gameLibrary, userList);
                     break;
 
                 case ConsoleKey.NumPad3:
-                    SelectDeleteGame(gameLibrary);
+                    SelectDeleteGame(gameLibrary, userList);
                     break;
 
                 case ConsoleKey.NumPad4:
+                    ShowUsersMenu(gameLibrary, userList);
+                    break;
+
+                case ConsoleKey.NumPad5:
                     dataManager.WriteDataFile(gameLibrary, dataManager.pathGamesDataFile, games.Properties());
                     LoginMenu login = new LoginMenu();
-                    login.ShowLoginMenu(gameLibrary,userList);
+                    login.ShowLoginMenu(gameLibrary, userList);
                     break;
 
                 default:
-                    Console.WriteLine("Choose one of the 4 Options");
-                    SelectInMenu(gameLibrary,userList);
+                    Console.WriteLine("Choose one of the Options");
+                    SelectInMenu(gameLibrary, userList);
                     break;
             }
         }
 
-        public void ShowLibrary(List<Games> gameLibrary)
+        public void ShowLibrary(List<Games> gameLibrary, List<Users> userList)
         {
             Console.Clear();
             Console.SetWindowSize(129, 51);
@@ -77,7 +82,7 @@ namespace ProjectDMJ
             PrintAdvancedInfo(gameLibrary);
             while (true)
             {
-                SortList(gameLibrary);
+                SortList(gameLibrary, userList);
             }
         }
 
@@ -120,38 +125,28 @@ namespace ProjectDMJ
             switch (option.Key)
             {
                 case ConsoleKey.NumPad1:
-                    {
-                        gameLibrary = gameLibrary.OrderBy(a => a.Name).ToList();
-                        break;
-                    }
+                    gameLibrary = gameLibrary.OrderBy(a => a.Name).ToList();
+                    break;
 
                 case ConsoleKey.NumPad2:
-                    {
-                        gameLibrary = gameLibrary.OrderBy(a => a.ReleaseDate).ToList();
-                        break;
-                    }
+                    gameLibrary = gameLibrary.OrderBy(a => a.ReleaseDate).ToList();
+                    break;
 
                 case ConsoleKey.NumPad3:
-                    {
-                        gameLibrary = gameLibrary.OrderBy(a => a.Developer).ToList();
-                        break;
-                    }
+                    gameLibrary = gameLibrary.OrderBy(a => a.Developer).ToList();
+                    break;
 
                 case ConsoleKey.NumPad4:
-                    {
-                        gameLibrary = gameLibrary.OrderBy(a => a.Genre).ToList();
-                        break;
-                    }
+                    gameLibrary = gameLibrary.OrderBy(a => a.Genre).ToList();
+                    break;
 
                 case ConsoleKey.NumPad5:
-                    {
-                        gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
-                        break;
-                    }
+                    gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
+                    break;
 
                 case ConsoleKey.NumPad6:
                     gameLibrary = gameLibrary = gameLibrary.OrderBy(a => a.ID).ToList();
-                    ShowMenu(gameLibrary,userList);
+                    ShowMenu(gameLibrary, userList);
                     break;
 
                 default:
@@ -159,10 +154,10 @@ namespace ProjectDMJ
                     Thread.Sleep(1500);
                     break;
             }
-            ShowLibrary(gameLibrary);
+            ShowLibrary(gameLibrary, userList);
         }
 
-        public void AddAnotherGame(List<Games> gameLibrary)
+        public void AddAnotherGame(List<Games> gameLibrary, List<Users> userList)
         {
             Console.WriteLine();
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 34) + "}", "Do you want to add another game to your Library? (Y / N) "));
@@ -179,12 +174,12 @@ namespace ProjectDMJ
             {
                 Console.Clear();
                 MenuLogo();
-                AskInfoNewGame(gameLibrary);
-                AddAnotherGame(gameLibrary);
+                AskInfoNewGame(gameLibrary, userList);
+                AddAnotherGame(gameLibrary, userList);
             }
             else if (addAnotherGame == 'N')
             {
-                CountdownToMainMenu(gameLibrary);
+                CountdownToMainMenu(gameLibrary, userList);
             }
         }
 
@@ -192,13 +187,13 @@ namespace ProjectDMJ
         {
             Console.Clear();
             MenuLogo();
-            AskInfoNewGame(gameLibrary);
-            AddAnotherGame(gameLibrary);
+            AskInfoNewGame(gameLibrary, userList);
+            AddAnotherGame(gameLibrary, userList);
             Thread.Sleep(2000);
-            ShowMenu(gameLibrary,userList);
+            ShowMenu(gameLibrary, userList);
         }
 
-        public void AskInfoNewGame(List<Games> gameLibrary)
+        public void AskInfoNewGame(List<Games> gameLibrary, List<Users> userList)
         {
             Games games = new Games();
 
@@ -211,7 +206,7 @@ namespace ProjectDMJ
             Console.WriteLine("");
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 12) + "}", name));
             string gameName = Console.ReadLine();
-            CheckInputExists(gameName, gameLibrary);
+            CheckInputExists(gameName, gameLibrary, userList);
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 7) + "}", dev));
             string gameDeveloper = Console.ReadLine();
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) - 16) + "}", genre));
@@ -224,7 +219,7 @@ namespace ProjectDMJ
             Console.WriteLine();
         }
 
-        public void CheckInputExists(string gameName, List<Games> gameLibrary)
+        public void CheckInputExists(string gameName, List<Games> gameLibrary, List<Users> userList)
         {
             for (int i = 0; i < gameLibrary.Count; i++)
             {
@@ -232,13 +227,13 @@ namespace ProjectDMJ
                 {
                     Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + 19) + "}", "This game already exists. Enter new title."));
                     Thread.Sleep(1500);
-                    AddNewGame(gameLibrary);
+                    AddNewGame(gameLibrary, userList);
                     break;
                 }
             }
         }
 
-        public void SelectDeleteGame(List<Games> gameLibrary)
+        public void SelectDeleteGame(List<Games> gameLibrary, List<Users> userList)
         {
             Console.Clear();
             MenuLogo();
@@ -253,7 +248,7 @@ namespace ProjectDMJ
             Console.WriteLine();
             DeleteGameConfirmation(gameLibrary, deletedId);
             Console.Write(String.Format("{0," + ((Console.WindowWidth / 2) + 3) + "}", "Delete another game? (y/n)"));
-            SelectDeleteMoreGames(gameLibrary);
+            SelectDeleteMoreGames(gameLibrary, userList);
         }
 
         public void SelectDeleteMoreGames(List<Games> gameLibrary, List<Users> userList)
@@ -263,7 +258,7 @@ namespace ProjectDMJ
             option = Console.ReadKey(true);
             if (option.Key == ConsoleKey.Y)
             {
-                SelectDeleteGame(gameLibrary);
+                SelectDeleteGame(gameLibrary, userList);
             }
             else if (option.Key == ConsoleKey.N)
             {
@@ -287,7 +282,7 @@ namespace ProjectDMJ
             }
             else if (option.Key == ConsoleKey.N)
             {
-                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) -8) + "}", "Delete canceled"));
+                Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) - 8) + "}", "Delete canceled"));
             }
             else
             {
@@ -296,6 +291,38 @@ namespace ProjectDMJ
                 DeleteGameConfirmation(gameLibrary, deletedId);
             }
         }
+
+        public void ShowUsers(List<Users> userList)
+        {
+            Layout layout = new Layout();
+            Console.WriteLine(layout.topBox);
+            Console.WriteLine(layout.headerU);
+
+            foreach (var item in userList)
+            {
+                Console.WriteLine(item.AdvancedInfo());
+            }
+            Console.WriteLine(layout.bottomBox);
+        }
+
+        public void ShowUsersMenu(List<Games> gameLibrary, List<Users> userList)
+        {
+            Console.SetWindowSize(129, 51);
+            Console.Clear();
+            MenuLogo();
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("Users"));
+            ShowUsers(userList);
+            Console.WriteLine();
+            Console.WriteLine(layout.Button("1.Return to Main Menu"));
+            ConsoleKeyInfo option;
+            option = Console.ReadKey(true);
+            if (option.Key == ConsoleKey.NumPad1)
+            {
+                ShowMenu(gameLibrary, userList);
+            }
+        }
+
         public void CountdownToMainMenu(List<Games> gameLibrary, List<Users> userList)
         {
             Console.WriteLine();

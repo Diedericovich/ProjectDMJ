@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ProjectDMJ
 {
     internal class LoginMenu
     {
-        private Games games = new Games();
         private Layout layout = new Layout();
         public Users users = new Users();
         public UserMenus userMenus = new UserMenus();
 
         public void ShowLoginMenu(List<Games> gameLibrary, List<Users> userList)
         {
-            Menus menuClass = new Menus();
+            Console.SetWindowSize(129, 27);
+            AdminMenus adminMenus = new AdminMenus();
 
             Console.Clear();
-            menuClass.MenuLogo();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            adminMenus.MenuLogo();
 
             Console.WriteLine();
 
@@ -23,28 +25,28 @@ namespace ProjectDMJ
             Console.WriteLine(layout.Button("2.Create Account"));
             Console.WriteLine(layout.Button("3.Exit"));
 
-            SelectInLoginMenu(gameLibrary, userList, userLibrary, user);
+            SelectInLoginMenu(gameLibrary, userList);
         }
 
-        public void SelectInLoginMenu(List<Games> gameLibrary, List<Users> userList, List<Games> userLibrary, Users user)
+        public void SelectInLoginMenu(List<Games> gameLibrary, List<Users> userList)
         {
-            Menus menuClass = new Menus();
-            Games games = new Games();
+            AdminMenus adminMenus = new AdminMenus();
             ConsoleKeyInfo option;
             option = Console.ReadKey(true);
 
             if (option.Key == ConsoleKey.NumPad1)
             {
                 Console.Clear();
-                menuClass.MenuLogo();
+                adminMenus.MenuLogo();
                 LoginAccount(gameLibrary, userList);
-                Console.WriteLine();
-                Console.WriteLine("Press enter to return to main menu");
-                Console.ReadLine();
-                ShowLoginMenu(gameLibrary, userList, userLibrary, user);
             }
             else if (option.Key == ConsoleKey.NumPad2)
             {
+                CreateUser(userList);
+                Console.WriteLine("Account creation succesful!");
+                Thread.Sleep(1000);
+                Console.Clear();
+                ShowLoginMenu(gameLibrary, userList);
             }
             else if (option.Key == ConsoleKey.NumPad3)
             {
@@ -53,13 +55,13 @@ namespace ProjectDMJ
             else
             {
                 Console.WriteLine("Choose one of the 3 Options");
-                SelectInLoginMenu(gameLibrary, userList, userLibrary, user);
+                SelectInLoginMenu(gameLibrary, userList);
             }
         }
 
         public void LoginAccount(List<Games> gameLibrary, List<Users> userList)
         {
-            Menus menuClass = new Menus();
+            AdminMenus menuClass = new AdminMenus();
             UserMenus userMenu = new UserMenus();
 
             Console.Clear();
@@ -71,29 +73,69 @@ namespace ProjectDMJ
 
             if (username == "admin")
             {
-                menuClass.ShowMenu(gameLibrary);
+                menuClass.ShowMenu(gameLibrary, userList);
             }
             else
             {
-                for (int i = 0; i < userList.Count; i++)
-                {
-                    if (username == userList[i].Username)
-                    {
-                        List<Games> userLibrary = userList[i].Library;
-                        userMenu.AccountMenu(userLibrary,userList,userList[i]);
-                    }
-                    else
-                    {
-                        Console.WriteLine("The name is not in use");
-                        Console.WriteLine();
-                        Console.WriteLine("A new account will be created");
-                    }
-                }
-
+                CheckUserExists(username, userList, gameLibrary);
             }
         }
-            
 
-       
+        public void CreateUser(List<Users> userList)
+        {
+            Console.Write("Username:");
+            string username = Console.ReadLine();
+            CheckUserExists(username, userList);
+            Console.Write("Email:");
+            string email = Console.ReadLine();
+            Console.Write("Country:");
+            string country = Console.ReadLine();
+            Console.Write("Real Name:");
+            string realname = Console.ReadLine();
+            Console.Write("Age:");
+            int age = Convert.ToInt32(Console.ReadLine());
+
+            List<Games> userLibrary = new List<Games>();
+            Users user = new Users(username, realname, email, country, age, userLibrary);
+            userList.Add(user);
+            DataManager dataManager = new DataManager();
+            dataManager.WriteDataFile(userList, dataManager.pathUsersDataFile, user.Properties());
+            Games games = new Games();
+            dataManager.WriteDataFile(user.Library, dataManager.pathUsersLibraryDataFile(user.Username), games.Properties());
+        }
+
+        public void CheckUserExists(string username, List<Users> userList)
+        {
+            UserMenus userMenu = new UserMenus();
+            for (int i = 0; i < userList.Count; i++)
+            {
+                if (username == userList[i].Username)
+                {
+                    Console.WriteLine("\nName already taken.");
+                    Thread.Sleep(1000);
+                    CreateUser(userList);
+                }
+            }
+        }
+
+        public void CheckUserExists(string username, List<Users> userList, List<Games> gameLibrary)
+        {
+            UserMenus userMenu = new UserMenus();
+            for (int i = 0; i < userList.Count; i++)
+            {
+                if (username == userList[i].Username)
+                {
+                    List<Games> userLibrary = userList[i].Library;
+                    userMenu.AccountMenu(userLibrary, userList, userList[i], gameLibrary);
+                }
+                else
+                {
+                    Console.WriteLine("Account not found.");
+                    Thread.Sleep(1000);
+                    LoginAccount(gameLibrary, userList);
+                    break;
+                }
+            }
+        }
     }
 }

@@ -51,6 +51,15 @@ namespace ProjectDMJ
             get { return age; }
             set { age = value; }
         }
+        private string color;
+
+        public string Color
+        {
+            get { return color; }
+            set { color = "Gray";
+                color = value; }
+        }
+
 
         private List<Games> library;
 
@@ -60,6 +69,16 @@ namespace ProjectDMJ
             set { library = value; }
         }
 
+        public Users(string username, string realname, string email, string country, int age, List<Games> library,string color)
+        {
+            Username = username;
+            Email = email;
+            Country = country;
+            RealName = realname;
+            Age = age;
+            Library = library;
+            Color = color;
+        }
         public Users(string username, string realname, string email, string country, int age, List<Games> library)
         {
             Username = username;
@@ -76,10 +95,16 @@ namespace ProjectDMJ
 
         public string Info()
         {
-            string Info = $"{Username},{RealName},{Email},{Country},{Age}";
+            string Info = $"{Username},{RealName},{Email},{Country},{Age},{color}";
             return Info;
         }
+        public string AdvancedInfo()
+        {
+            Layout layout = new Layout();
+            string items = $"\n │ {username,-41} | {realName,-25} │ {email,-25} │ {country,-23} |";
 
+            return layout.connector + items;
+        }
         public string Properties()
         {
             return "Username,Real Name,Email,Country,Age";
