@@ -1,12 +1,16 @@
 # ProjectDMJ: "DAMP"
+
 Project 1 Diederik, Michael, Jens
+
 
 
 First project in C# course: Module 1
 (after 4 weeks of lessons in C#)
 
+
 Task: create a datamanagement application in console (CRUD)
 Chosen Subject with team: Steam Account
+
 
 
 Minimum requirements:
