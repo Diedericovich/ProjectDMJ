@@ -13,7 +13,7 @@ Chosen Subject with team: Steam Account
 
 
 
-Minimum requirements:
+# Minimum requirements:
 
 -If/ else statements
 -Loops
@@ -31,7 +31,7 @@ Minimum requirements:
 -Save and extract from an external file
 
 
-Extra requirements:
+# Extra requirements:
 
 - no unnecessary white space
 - correct indentions for code
